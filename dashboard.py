@@ -8,7 +8,7 @@ import requests
 import json
 from PIL import Image
 import io
-import pickles
+#import pickles
 #import plotly.express as px
 import plotly.graph_objs as go
 
