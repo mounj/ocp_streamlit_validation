@@ -3,7 +3,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import requests
 import json
 from PIL import Image
@@ -58,7 +58,7 @@ def main():
     
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
 
-    examples_file = 'df.csv'
+    examples_file = 'df1.csv'
     dataframe, liste_id = chargement_data(examples_file)
 
     st.sidebar.image(image)
@@ -119,7 +119,7 @@ def main():
 
         # informations du client
         st.header("Informations du client")
-        examples_file = 'application_train.csv'
+        examples_file = 'application_API.csv'
         application, liste_id = chargement_data(examples_file)
         application = application[~((application['EXT_SOURCE_1'].isnull()))]
         X1 = application[application['SK_ID_CURR'] == id_input]  
@@ -135,7 +135,7 @@ def main():
 
         if focus_var == 'EXT_SOURCE_1':           
            source1 = application[['TARGET', 'EXT_SOURCE_1']]
-           source1['SOURCE_BINNED'] = pd.cut(source1['EXT_SOURCE_1'], bins = np.linspace(0.08, 1, num = 20))
+           source1['SOURCE_BINNED'] = pd.cut(source1['EXT_SOURCE_1'], bins = np.linspace(0.4, 0.8, num = 15))
            ext_source1  = source1.groupby('SOURCE_BINNED').mean()               
            trace = go.Bar(x=ext_source1.index.astype(str),y=ext_source1['TARGET'].values*100,showlegend = True)
            layout = go.Layout(title = "Difficulté de payer en fonction des tranches de source1")
@@ -147,7 +147,7 @@ def main():
            #fig2 = px.density_heatmap(data_frame= dataframe, y="TARGET", x="EXT_SOURCE_2")
            #st.write(fig2) 
            source2 = application[['TARGET', 'EXT_SOURCE_2']]
-           source2['SOURCE_BINNED'] = pd.cut(source2['EXT_SOURCE_2'], bins = np.linspace(0.08, 1, num = 20))
+           source2['SOURCE_BINNED'] = pd.cut(source2['EXT_SOURCE_2'], bins = np.linspace(0.4, 0.8, num = 15))
            ext_source2  = source2.groupby('SOURCE_BINNED').mean()                      
            trace = go.Bar(x=ext_source2.index.astype(str),y=ext_source2['TARGET'].values*100,showlegend = True)
            layout = go.Layout(title = "Difficulté de payer en fonction des tranches de source2")
@@ -157,7 +157,7 @@ def main():
         
         if focus_var == 'EXT_SOURCE_3':
            source3 = application[['TARGET', 'EXT_SOURCE_3']]
-           source3['SOURCE_BINNED'] = pd.cut(source3['EXT_SOURCE_3'], bins = np.linspace(0.08, 1, num = 20))
+           source3['SOURCE_BINNED'] = pd.cut(source3['EXT_SOURCE_3'], bins = np.linspace(0.4, 0.8, num = 15))
            ext_source3  = source3.groupby('SOURCE_BINNED').mean()                      
            trace = go.Bar(x=ext_source3.index.astype(str),y=ext_source3['TARGET'].values*100,showlegend = True)
            layout = go.Layout(title = "Difficulté de payer en fonction des tranches de source3")
