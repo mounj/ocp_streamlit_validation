@@ -8,8 +8,8 @@ import requests
 import json
 from PIL import Image
 import io
-import pickle
-import plotly.express as px
+import pickles
+#import plotly.express as px
 import plotly.graph_objs as go
 
 
@@ -36,18 +36,20 @@ def prediction(X):
 ######################################
 # Feature Selection Code
 ######################################
-def impPlot(imp, name):
-    figure = px.bar(imp,
-                    x=imp.values,
-                    y=imp.keys(), labels = {'x':'Importance Value', 'index':'Columns'},
-                    text=np.round(imp.values, 2),
-                    title=name + ' Feature Selection Plot',
-                    width=1000, height=600)
-    figure.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-    })
-    st.plotly_chart(figure)
+#def impPlot(imp, name):
+#    figure = px.bar(imp,
+#                    x=imp.values,
+#                    y=imp.keys(), labels = {'x':'Importance Value', 'index':'Columns'},
+#                    text=np.round(imp.values, 2),
+#                    title=name + ' Feature Selection Plot',
+#                    width=1000, height=600)
+#    figure.update_layout({
+#        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+#        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+#    })
+#    st.plotly_chart(figure)
+    
+    
 
 def main():
     def chargement_data(path):
@@ -128,7 +130,12 @@ def main():
         st.header("Graphique d'explication")
         feat_importances = pd.Series(classifier.feature_importances_, index=X.columns).sort_values(ascending=False)
         st.subheader('Random Forest Classifier:')
-        impPlot(feat_importances, 'Random Forest Classifier')
+        #impPlot(feat_importances, 'Random Forest Classifier')
+        trace = go.Bar(x=feat_importances.values,y=feat_importances.keys(),showlegend = True)
+        layout = go.Layout(title = "Importance des features")
+        data = [trace]
+        fig = go.Figure(data=data,layout=layout)
+        st.plotly_chart(fig)
                    
         
         st.header("Positionnement du client")
