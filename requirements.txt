@@ -1,0 +1,6 @@
+streamlit
+pandas
+uvicorn
+gunicorn==19.9.0
+pandas
+plotly==5.9.0
