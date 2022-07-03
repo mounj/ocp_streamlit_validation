@@ -16,8 +16,8 @@ import plotly.graph_objs as go
 st.title('Bienvenue sur Credit Risk !')
 
 # loading the trained model
-pickle_in = open('classifier.pkl', 'rb') 
-classifier = pickle.load(pickle_in)
+with open('classifier.pkl', 'rb')  
+#classifier = pickle.load(pickle_in)
 
 ########################################################
 # Loading images to the website
