@@ -4,3 +4,4 @@ uvicorn
 gunicorn==19.9.0
 pandas
 plotly==5.9.0
+matplotlib==3.3.2
