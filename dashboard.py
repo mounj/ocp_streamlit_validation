@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import requests
 import json
+import pickle
 from PIL import Image
 import io
 import plotly.express as px
@@ -15,8 +16,8 @@ import plotly.graph_objs as go
 st.title('Bienvenue sur Credit Risk !')
 
 # loading the trained model
-with open(r'C:\Users\Catherine\Credit\classifier.pkl', 'rb') 
-
+#with open(r'C:\Users\Catherine\Credit\classifier.pkl', 'rb') 
+model = pickle.load(open('classifier.pkl','rb'))
 
 ########################################################
 # Loading images to the website
@@ -25,7 +26,7 @@ image = Image.open("images/credit.jpg")
 
 @st.cache()
 def prediction(X):
-    prediction = classifier.predict(X)
+    prediction = model.predict(X)
     if prediction == 0:
         pred = 'Rejected'
     else:

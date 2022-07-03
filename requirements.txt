@@ -1,5 +1,6 @@
 streamlit
 pandas
+pickle
 uvicorn
 gunicorn==19.9.0
 pandas
