@@ -3,13 +3,13 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import requests
 import json
 from PIL import Image
 import io
-#import pickles
-#import plotly.express as px
+import pickle
+import plotly.express as px
 import plotly.graph_objs as go
 
 
@@ -36,18 +36,18 @@ def prediction(X):
 ######################################
 # Feature Selection Code
 ######################################
-#def impPlot(imp, name):
-#    figure = px.bar(imp,
-#                    x=imp.values,
-#                    y=imp.keys(), labels = {'x':'Importance Value', 'index':'Columns'},
-#                    text=np.round(imp.values, 2),
-#                    title=name + ' Feature Selection Plot',
-#                    width=1000, height=600)
-#    figure.update_layout({
-#        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-#        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-#    })
-#    st.plotly_chart(figure)
+def impPlot(imp, name):
+    figure = px.bar(imp,
+                    x=imp.values,
+                    y=imp.keys(), labels = {'x':'Importance Value', 'index':'Columns'},
+                    text=np.round(imp.values, 2),
+                    title=name + ' Feature Selection Plot',
+                    width=1000, height=600)
+    figure.update_layout({
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+    })
+    st.plotly_chart(figure)
     
     
 
@@ -130,19 +130,19 @@ def main():
         st.header("Graphique d'explication")
         feat_importances = pd.Series(classifier.feature_importances_, index=X.columns).sort_values(ascending=False)
         st.subheader('Random Forest Classifier:')
-        #impPlot(feat_importances, 'Random Forest Classifier')
-        trace = go.Bar(x=feat_importances.values,y=feat_importances.keys(),showlegend = True)
-        layout = go.Layout(title = "Importance des features")
-        data = [trace]
-        fig = go.Figure(data=data,layout=layout)
-        st.plotly_chart(fig)
+        impPlot(feat_importances, 'Random Forest Classifier')
+        #trace = go.Bar(x=feat_importances.values,y=feat_importances.keys(),showlegend = True)
+        #layout = go.Layout(title = "Importance des features")
+        #data = [trace]
+        #fig = go.Figure(data=data,layout=layout)
+        #st.plotly_chart(fig)
                    
         
         st.header("Positionnement du client")
 
         if focus_var == 'EXT_SOURCE_1':           
            source1 = application[['TARGET', 'EXT_SOURCE_1']]
-           source1['SOURCE_BINNED'] = pd.cut(source1['EXT_SOURCE_1'], bins = np.linspace(0.4, 0.8, num = 15))
+           source1['SOURCE_BINNED'] = pd.cut(source1['EXT_SOURCE_1'], bins = np.linspace(0.2, 0.8, num = 15))
            ext_source1  = source1.groupby('SOURCE_BINNED').mean()               
            trace = go.Bar(x=ext_source1.index.astype(str),y=ext_source1['TARGET'].values*100,showlegend = True)
            layout = go.Layout(title = "Difficulté de payer en fonction des tranches de source1")
@@ -154,7 +154,7 @@ def main():
            #fig2 = px.density_heatmap(data_frame= dataframe, y="TARGET", x="EXT_SOURCE_2")
            #st.write(fig2) 
            source2 = application[['TARGET', 'EXT_SOURCE_2']]
-           source2['SOURCE_BINNED'] = pd.cut(source2['EXT_SOURCE_2'], bins = np.linspace(0.4, 0.8, num = 15))
+           source2['SOURCE_BINNED'] = pd.cut(source2['EXT_SOURCE_2'], bins = np.linspace(0.2, 0.8, num = 15))
            ext_source2  = source2.groupby('SOURCE_BINNED').mean()                      
            trace = go.Bar(x=ext_source2.index.astype(str),y=ext_source2['TARGET'].values*100,showlegend = True)
            layout = go.Layout(title = "Difficulté de payer en fonction des tranches de source2")
@@ -164,7 +164,7 @@ def main():
         
         if focus_var == 'EXT_SOURCE_3':
            source3 = application[['TARGET', 'EXT_SOURCE_3']]
-           source3['SOURCE_BINNED'] = pd.cut(source3['EXT_SOURCE_3'], bins = np.linspace(0.4, 0.8, num = 15))
+           source3['SOURCE_BINNED'] = pd.cut(source3['EXT_SOURCE_3'], bins = np.linspace(0.2, 0.8, num = 15))
            ext_source3  = source3.groupby('SOURCE_BINNED').mean()                      
            trace = go.Bar(x=ext_source3.index.astype(str),y=ext_source3['TARGET'].values*100,showlegend = True)
            layout = go.Layout(title = "Difficulté de payer en fonction des tranches de source3")
