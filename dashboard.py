@@ -15,7 +15,7 @@ import plotly.graph_objs as go
 st.title('Bienvenue sur Credit Risk !')
 
 # loading the trained model
-with open('classifier.pkl', 'rb') 
+with open(r'C:\Users\Catherine\Credit\classifier.pkl', 'rb') 
 
 
 ########################################################
