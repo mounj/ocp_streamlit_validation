@@ -8,7 +8,6 @@ import requests
 import json
 from PIL import Image
 import io
-import pickle
 import plotly.express as px
 import plotly.graph_objs as go
 
@@ -16,8 +15,8 @@ import plotly.graph_objs as go
 st.title('Bienvenue sur Credit Risk !')
 
 # loading the trained model
-with open('classifier.pkl', 'rb')  
-#classifier = pickle.load(pickle_in)
+with open('classifier.pkl', 'rb') 
+
 
 ########################################################
 # Loading images to the website
