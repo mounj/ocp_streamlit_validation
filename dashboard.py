@@ -82,7 +82,8 @@ def main():
 
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
         ['SK_ID_CURR'], axis=1)
-    client_infos = client_infos.to_dict('record')[0]
+    #client_infos = client_infos.to_dict('record')[0]
+    client_infos.to_dict(orient = 'records')
     
     result =""
     
