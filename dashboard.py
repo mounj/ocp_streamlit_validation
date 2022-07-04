@@ -7,17 +7,22 @@ import matplotlib.pyplot as plt
 import requests
 import json
 import pickle
+import os
 from PIL import Image
 import io
 import plotly.express as px
 import plotly.graph_objs as go
 
 
-st.title('Bienvenue sur Credit Risk !')
+st.title('Bienvenue sur Octroi de crédit !')
 
 # loading the trained model
 #with open(r'C:\Users\Catherine\Credit\classifier.pkl', 'rb') 
-model = pickle.load(open('classifier.pkl','rb'))
+
+current_path = os.getcwd()
+credit_path = os.path.join(current_path, 'classifier.pkl')
+with open(credit_path, 'rb') as handle:
+    model = pickle.load(handle)
 
 ########################################################
 # Loading images to the website

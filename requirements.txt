@@ -1,9 +1,8 @@
-streamlit
 pandas
 pickle
-uvicorn
-gunicorn==19.9.0
-pandas
+#uvicorn
+#gunicorn==19.9.0
 plotly==5.9.0
 matplotlib==3.3.2
 opencv-python-headless==4.5.3.56
+streamlit==0.84.0
