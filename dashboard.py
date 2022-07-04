@@ -33,9 +33,9 @@ image = Image.open("images/credit.jpg")
 def prediction(X):
     prediction = model.predict(X)
     if prediction == 0:
-        pred = 'Rejected'
-    else:
         pred = 'Approved'
+    else:
+        pred = 'Rejected'
     return pred 
 
 ######################################
