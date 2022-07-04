@@ -151,7 +151,7 @@ def main():
            source1['SOURCE_BINNED'] = pd.cut(source1['EXT_SOURCE_1'], bins = np.linspace(0.2, 0.8, num = 15))
            ext_source1  = source1.groupby('SOURCE_BINNED').mean()               
            trace = go.Bar(x=ext_source1.index.astype(str),y=ext_source1['TARGET'].values*100,showlegend = True)
-           layout = go.Layout(title = "Difficulté de payer en fonction des tranches de source1")
+           layout = go.Layout(title = "% Faillite par tranches de source1")
            data = [trace]
            fig = go.Figure(data=data,layout=layout)
            st.plotly_chart(fig)
@@ -163,7 +163,7 @@ def main():
            source2['SOURCE_BINNED'] = pd.cut(source2['EXT_SOURCE_2'], bins = np.linspace(0.2, 0.8, num = 15))
            ext_source2  = source2.groupby('SOURCE_BINNED').mean()                      
            trace = go.Bar(x=ext_source2.index.astype(str),y=ext_source2['TARGET'].values*100,showlegend = True)
-           layout = go.Layout(title = "Difficulté de payer en fonction des tranches de source2")
+           layout = go.Layout(title = "% Faillite par tranches de source2")
            data = [trace]
            fig = go.Figure(data=data,layout=layout)
            st.plotly_chart(fig) 
@@ -173,7 +173,7 @@ def main():
            source3['SOURCE_BINNED'] = pd.cut(source3['EXT_SOURCE_3'], bins = np.linspace(0.2, 0.8, num = 15))
            ext_source3  = source3.groupby('SOURCE_BINNED').mean()                      
            trace = go.Bar(x=ext_source3.index.astype(str),y=ext_source3['TARGET'].values*100,showlegend = True)
-           layout = go.Layout(title = "Difficulté de payer en fonction des tranches de source3")
+           layout = go.Layout(title = "% Faillite par tranches de source3")
            data = [trace]
            fig = go.Figure(data=data,layout=layout)
            st.plotly_chart(fig)
