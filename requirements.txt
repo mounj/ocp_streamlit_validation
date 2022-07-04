@@ -1,5 +1,4 @@
-pandas
-pickle
+pandas==1.4.3
 #uvicorn
 #gunicorn==19.9.0
 plotly==5.9.0
