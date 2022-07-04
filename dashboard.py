@@ -32,11 +32,11 @@ image = Image.open("images/credit.jpg")
 @st.cache()
 def prediction(X):
     prediction = model.predict(X)
-    if prediction == 0:
-        pred = 'Approved'
-    else:
-        pred = 'Rejected'
-    return pred 
+    #if prediction == 0:
+    #    pred = 'Approved'
+    #else:
+    #    pred = 'Rejected'
+    return prediction 
 
 ######################################
 # Feature Selection Code
@@ -119,9 +119,9 @@ def main():
           'EXT_SOURCE_3']]
         result = prediction(X)
         if result == 0:
-         result = 'Rejected'
-        else:
          result = 'Approved'
+        else:
+         result = 'Rejected'
          
         st.success('Your loan is {}'.format(result))
 
