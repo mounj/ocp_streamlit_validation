@@ -134,7 +134,7 @@ def main():
         st.write(X1)
         
         st.header("Graphique d'explication")
-        feat_importances = pd.Series(classifier.feature_importances_, index=X.columns).sort_values(ascending=False)
+        feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
         st.subheader('Random Forest Classifier:')
         impPlot(feat_importances, 'Random Forest Classifier')
         #trace = go.Bar(x=feat_importances.values,y=feat_importances.keys(),showlegend = True)
