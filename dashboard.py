@@ -88,8 +88,9 @@ def main():
     result =""
     
     if st.sidebar.button("Predict"):
-        X = dataframe[dataframe['SK_ID_CURR'] == id_input]    
-        X = X[['CODE_GENDER', 
+        # correction 07/07 pour déceler les faux positifs
+        X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
+        X = X1[['CODE_GENDER', 
         'AGE',
         'CNT_CHILDREN', 
         'DEF_30_CNT_SOCIAL_CIRCLE',
@@ -117,13 +118,21 @@ def main():
           'EXT_SOURCE_1',
           'EXT_SOURCE_2',
           'EXT_SOURCE_3']]
+        
         result = prediction(X)
-        if result == 0:
-         result = 'Approved'
+        
+        if  result == 1:
+            if int(X1['TARGET']) == 1: 
+                pred = 'Rejected (TN)'
+            else:
+                pred = 'Approved (FN)'
         else:
-         result = 'Rejected'
-         
-        st.success('Your loan is {}'.format(result))
+            if int(X1['TARGET']) == 1:
+                pred = 'Rejected (FP)'
+            else:
+                pred = 'Approved (TP)'              
+                   
+        st.success('Your loan is {}'.format(pred))
 
         # informations du client
         st.header("Informations du client")
