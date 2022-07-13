@@ -167,24 +167,28 @@ def main():
         #   fig = go.Figure(data=data,layout=layout)
         #   st.plotly_chart(fig)
         
-        # Saisie des informations Client     
-        CODE_GENDER = st.selectbox("CODE_GENDER",options=['M' , 'F'])
-        AGE = st.slider("AGE", 1, 100,1)
-        CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5,1)
-        DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100,1)
+        # Saisie des informations Client dans X2 pour prédiction nouvelle
+        X2 = X1.copy()
+                
+        AGE = st.slider("AGE", 1, 100,X2['AGE'])
+        CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5,X2['CNT_CHILDREN'])
+        DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100,X2['DEF_30_CNT_SOCIAL_CIRCLE'])
+        
         NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])
         ORGANIZATION_TYPE = st.selectbox("ORGANIZATION_TYPE",options=['Construction', 'Electricity', 'Government/Industry', 'Medicine', 
                                                                       'Other/Construction/Agriculture', 'School', 'Services', 
                                                                       'Trade/Business'])
         OCCUPATION_TYPE = st.selectbox("OCCUPATION_TYPE",options=['Accountants/HR staff/Managers','Core/Sales staff','Laborers',
                                                                   'Medicine staff','Private service staff' , 'Tech Staff'])
+        
         NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married'])
-        AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000,1000)
-        INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100,10)
-        DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100,10)
-        EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100,10)
-        EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100,10)
-        EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100,10)  
+        
+        AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000,X2['AMT_INCOME_TOTAL'])
+        INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100,X2['INCOME_CREDIT_PERC'])
+        DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100,X2['DAYS_EMPLOYED_PERC'])
+        EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100,X2['EXT_SOURCE_1'])
+        EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100,X2['EXT_SOURCE_2'])
+        EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100,X2['EXT_SOURCE_3'])  
         
         # Scaling pour prédiction
         CODE_GENDER = 0 if  CODE_GENDER == 'M' else 1
@@ -265,9 +269,9 @@ def main():
                                         EXT_SOURCE_2,    
                                         EXT_SOURCE_3
                                         ]       
-        input_data.reshape(1, -1)        
-        transparence = prediction(input_data)
-        predict_probability = model.predict_proba(input_data)
+              
+        transparence = prediction(X2)
+        predict_probability = model.predict_proba(X2)
         
         if transparence == 1:
            st.subheader('Le client {} aurait une probabilité de faillite de {}%'.format(id_input , round(predict_probability[0][1]*100 , 
