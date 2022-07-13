@@ -195,7 +195,7 @@ def main():
         else:
             NAME_EDUCATION_TYPE_High_education = 1
             
-        ORGANIZATION_TYPE_Construction, ORGANIZATION_TYPE_Electricity, ORGANIZATION_TYPE_Government/Industry = 0,0,0
+        ORGANIZATION_TYPE_Construction, ORGANIZATION_TYPE_Electricity, ORGANIZATION_TYPE_Government_Industry = 0,0,0
         ORGANIZATION_TYPE_Medicine, ORGANIZATION_TYPE_Other/Construction/Agriculture, ORGANIZATION_TYPE_School = 0,0,0
         ORGANIZATION_TYPE_Services, ORGANIZATION_TYPE_Trade/Business = 0,0 
         if ORGANIZATION_TYPE == 'Construction':
@@ -203,7 +203,7 @@ def main():
         elif ORGANIZATION_TYPE == 'Electricity':
             ORGANIZATION_TYPE_Electricity = 1
         elif ORGANIZATION_TYPE ==  'Government/Industry':   
-            ORGANIZATION_TYPE_Government/Industry = 1 
+            ORGANIZATION_TYPE_Government_Industry = 1 
         elif ORGANIZATION_TYPE == 'Medicine':    
             ORGANIZATION_TYPE_Medicine = 1
         elif ORGANIZATION_TYPE == 'Other/Construction/Agriculture':
@@ -240,7 +240,7 @@ def main():
                                         NAME_EDUCATION_TYPE_High_education,
                                         ORGANIZATION_TYPE_Construction, 
                                         ORGANIZATION_TYPE_Electricity, 
-                                        ORGANIZATION_TYPE_Government/Industry,
+                                        ORGANIZATION_TYPE_Government_Industry,
                                         ORGANIZATION_TYPE_Medicine, 
                                         ORGANIZATION_TYPE_Other/Construction/Agriculture, 
                                         ORGANIZATION_TYPE_School,
