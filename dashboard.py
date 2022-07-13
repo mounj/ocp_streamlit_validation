@@ -265,7 +265,7 @@ def main():
                                         EXT_SOURCE_2,    
                                         EXT_SOURCE_3
                                         ]       
-                 
+        input_data.reshape(1, -1)        
         transparence = prediction(input_data)
         predict_probability = model.predict_proba(input_data)
         
