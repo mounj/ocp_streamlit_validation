@@ -170,9 +170,9 @@ def main():
         # Saisie des informations Client dans X2 pour prédiction nouvelle
         X2 = X1.copy()
                 
-        AGE = st.slider("AGE", 1, 100, X2['AGE'].values[0])
-        CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5, X2['CNT_CHILDREN'].values[0])
-        DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100, X2['DEF_30_CNT_SOCIAL_CIRCLE'].values[0])
+        AGE = st.slider("AGE", 1, 100, X2['AGE'].values)
+        CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5, X2['CNT_CHILDREN'].values)
+        DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100, X2['DEF_30_CNT_SOCIAL_CIRCLE'].values)
         
         NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])
         ORGANIZATION_TYPE = st.selectbox("ORGANIZATION_TYPE",options=['Construction', 'Electricity', 'Government/Industry', 'Medicine', 
@@ -183,12 +183,12 @@ def main():
         
         NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married'])
         
-        AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, X2['AMT_INCOME_TOTAL'].values[0])
-        INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100, X2['INCOME_CREDIT_PERC'].values[0])
-        DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100, X2['DAYS_EMPLOYED_PERC'].values[0])
-        EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100, X2['EXT_SOURCE_1'].values[0])
-        EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100, X2['EXT_SOURCE_2'].values[0])
-        EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100, X2['EXT_SOURCE_3'].values[0])  
+        AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, X2['AMT_INCOME_TOTAL'].values)
+        INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100, X2['INCOME_CREDIT_PERC'].values)
+        DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100, X2['DAYS_EMPLOYED_PERC'].values)
+        EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100, X2['EXT_SOURCE_1'].values)
+        EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100, X2['EXT_SOURCE_2'].values)
+        EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100, X2['EXT_SOURCE_3'].values)  
         
         # Scaling pour prédiction
         CODE_GENDER = 0 if  CODE_GENDER == 'M' else 1
