@@ -237,9 +237,10 @@ def main():
         input_data = scaler.fit_transform([[CODE_GENDER,
                                         AGE, 
                                         CNT_CHILDREN,
+                                        DEF_30_CNT_SOCIAL_CIRCLE,
+                                        NAME_EDUCATION_TYPE_High_education,    
                                         NAME_EDUCATION_TYPE_Low_education, 
-                                        NAME_EDUCATION_TYPE_Medium_education, 
-                                        NAME_EDUCATION_TYPE_High_education,
+                                        NAME_EDUCATION_TYPE_Medium_education,                                         
                                         ORGANIZATION_TYPE_Construction, 
                                         ORGANIZATION_TYPE_Electricity, 
                                         ORGANIZATION_TYPE_Government_Industry,
@@ -261,10 +262,9 @@ def main():
                                         EXT_SOURCE_1,
                                         EXT_SOURCE_2,    
                                         EXT_SOURCE_3
-                                        ]])
-        
+                                        ]])       
+                 
         transparence = prediction(input_data)
-        
         predict_probability = model.predict_proba(input_data)
         
         if transparence[0] == 1:
