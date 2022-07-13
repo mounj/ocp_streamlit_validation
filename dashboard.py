@@ -187,13 +187,13 @@ def main():
         # Scaling pour prédiction
         CODE_GENDER = 0 if  CODE_GENDER == 'M' else 1
         
-        NAME_EDUCATION_TYPE_Low education , NAME_EDUCATION_TYPE_Medium education , NAME_EDUCATION_TYPE_High education = 0,0,0
+        NAME_EDUCATION_TYPE_Low_education , NAME_EDUCATION_TYPE_Medium_education , NAME_EDUCATION_TYPE_High_education = 0,0,0
         if NAME_EDUCATION_TYPE == 'Low education':
-            NAME_EDUCATION_TYPE_Low education = 1
+            NAME_EDUCATION_TYPE_Low_education = 1
         elif NAME_EDUCATION_TYPE == 'Medium education':
-            NAME_EDUCATION_TYPE_Medium education = 1
+            NAME_EDUCATION_TYPE_Medium_education = 1
         else:
-            NAME_EDUCATION_TYPE_High education = 1
+            NAME_EDUCATION_TYPE_High_education = 1
             
         ORGANIZATION_TYPE_Construction, ORGANIZATION_TYPE_Electricity, ORGANIZATION_TYPE_Government/Industry = 0,0,0
         ORGANIZATION_TYPE_Medicine, ORGANIZATION_TYPE_Other/Construction/Agriculture, ORGANIZATION_TYPE_School = 0,0,0
@@ -215,29 +215,29 @@ def main():
         elif ORGANIZATION_TYPE == 'Trade/Business'
             ORGANIZATION_TYPE_Trade/Business = 1
             
-        OCCUPATION_TYPE_Accountants/HR staff/Managers, OCCUPATION_TYPE_Core/Sales staff, OCCUPATION_TYPE_Laborers = 0,0,0  
-        OCCUPATION_TYPE_Medicine staff, OCCUPATION_TYPE_Private service staff, OCCUPATION_TYPE_Tech Staff = 0,0,0
+        OCCUPATION_TYPE_Accountants/HR_staff/Managers, OCCUPATION_TYPE_Core/Sales_staff, OCCUPATION_TYPE_Laborers = 0,0,0  
+        OCCUPATION_TYPE_Medicine_staff, OCCUPATION_TYPE_Private_service_staff, OCCUPATION_TYPE_Tech_Staff = 0,0,0
         if OCCUPATION_TYPE == 'Accountants/HR staff/Managers':
-           OCCUPATION_TYPE_Accountants/HR staff/Managers = 1
+           OCCUPATION_TYPE_Accountants/HR_staff/Managers = 1
         elif OCCUPATION_TYPE == 'Core/Sales staff':
-           OCCUPATION_TYPE_Core/Sales staff = 1
+           OCCUPATION_TYPE_Core/Sales_staff = 1
         elif OCCUPATION_TYPE == 'Laborers':
            OCCUPATION_TYPE_Laborers = 1
         elif OCCUPATION_TYPE == 'Medicine staff':
-           OCCUPATION_TYPE_Medicine staff = 1
+           OCCUPATION_TYPE_Medicine_staff = 1
         elif OCCUPATION_TYPE == 'Private service staff'
-           OCCUPATION_TYPE_Private service staff = 1 
+           OCCUPATION_TYPE_Private_service_staff = 1 
         elif OCCUPATION_TYPE ==  'Tech Staff':
-           OCCUPATION_TYPE_Tech Staff = 1
+           OCCUPATION_TYPE_Tech_Staff = 1
         
         NAME_FAMILY_STATUS = 0 if  NAME_FAMILY_STATUS == 'Single' else 1
         
         input_data = scaler.transform([[CODE_GENDER,
                                         AGE, 
                                         CNT_CHILDREN,
-                                        NAME_EDUCATION_TYPE_Low education, 
-                                        NAME_EDUCATION_TYPE_Medium education, 
-                                        NAME_EDUCATION_TYPE_High education,
+                                        NAME_EDUCATION_TYPE_Low_education, 
+                                        NAME_EDUCATION_TYPE_Medium_education, 
+                                        NAME_EDUCATION_TYPE_High_education,
                                         ORGANIZATION_TYPE_Construction, 
                                         ORGANIZATION_TYPE_Electricity, 
                                         ORGANIZATION_TYPE_Government/Industry,
@@ -247,11 +247,11 @@ def main():
                                         ORGANIZATION_TYPE_Services, 
                                         ORGANIZATION_TYPE_Trade/Business,
                                         OCCUPATION_TYPE_Accountants/HR staff/Managers,
-                                        OCCUPATION_TYPE_Core/Sales staff, 
+                                        OCCUPATION_TYPE_Core/Sales_staff, 
                                         OCCUPATION_TYPE_Laborers,
-                                        OCCUPATION_TYPE_Medicine staff, 
-                                        OCCUPATION_TYPE_Private service staff, 
-                                        OCCUPATION_TYPE_Tech Staff,
+                                        OCCUPATION_TYPE_Medicine_staff, 
+                                        OCCUPATION_TYPE_Private_service_staff, 
+                                        OCCUPATION_TYPE_Tech_Staff,
                                         NAME_FAMILY_STATUS,
                                         AMT_INCOME_TOTAL,
                                         INCOME_CREDIT_PERC,
