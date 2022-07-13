@@ -75,10 +75,10 @@ def main():
         'Choisissez le client que vous souhaitez visualiser',
         liste_id)
 
-    focus_var = st.sidebar.selectbox('Choisissez la variable de focus',
-                                     ['EXT_SOURCE_1',
-                                      'EXT_SOURCE_2',
-                                      'EXT_SOURCE_3'])
+    #focus_var = st.sidebar.selectbox('Choisissez la variable de focus',
+    #                                 ['EXT_SOURCE_1',
+    #                                  'EXT_SOURCE_2',
+    #                                  'EXT_SOURCE_3'])
 
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
         ['SK_ID_CURR'], axis=1)
@@ -116,7 +116,7 @@ def main():
           'INCOME_CREDIT_PERC',
           'DAYS_EMPLOYED_PERC',
           'EXT_SOURCE_1',
-          'EXT_SOURCE_2',
+          'EXT_SOURCE_2',    
           'EXT_SOURCE_3']]
         
         result = prediction(X)
@@ -155,37 +155,35 @@ def main():
         
         st.header("Positionnement du client")
 
-        if focus_var == 'EXT_SOURCE_1':           
-           source1 = application[['TARGET', 'EXT_SOURCE_1']]
-           source1['SOURCE_BINNED'] = pd.cut(source1['EXT_SOURCE_1'], bins = np.linspace(0.2, 0.8, num = 15))
-           ext_source1  = source1.groupby('SOURCE_BINNED').mean()               
-           trace = go.Bar(x=ext_source1.index.astype(str),y=ext_source1['TARGET'].values*100,showlegend = True)
-           layout = go.Layout(title = "% Faillite par tranches de source1")
-           data = [trace]
-           fig = go.Figure(data=data,layout=layout)
-           st.plotly_chart(fig)
+        #if focus_var == 'EXT_SOURCE_1':           
+        #   source1 = application[['TARGET', 'EXT_SOURCE_1']]
+        #   source1['SOURCE_BINNED'] = pd.cut(source1['EXT_SOURCE_1'], bins = np.linspace(0.2, 0.8, num = 15))
+        #   ext_source1  = source1.groupby('SOURCE_BINNED').mean()               
+        #   trace = go.Bar(x=ext_source1.index.astype(str),y=ext_source1['TARGET'].values*100,showlegend = True)
+        #   layout = go.Layout(title = "% Faillite par tranches de source1")
+        #   data = [trace]
+        #   fig = go.Figure(data=data,layout=layout)
+        #   st.plotly_chart(fig)
             
-        if focus_var == 'EXT_SOURCE_2':           
-           #fig2 = px.density_heatmap(data_frame= dataframe, y="TARGET", x="EXT_SOURCE_2")
-           #st.write(fig2) 
-           source2 = application[['TARGET', 'EXT_SOURCE_2']]
-           source2['SOURCE_BINNED'] = pd.cut(source2['EXT_SOURCE_2'], bins = np.linspace(0.2, 0.8, num = 15))
-           ext_source2  = source2.groupby('SOURCE_BINNED').mean()                      
-           trace = go.Bar(x=ext_source2.index.astype(str),y=ext_source2['TARGET'].values*100,showlegend = True)
-           layout = go.Layout(title = "% Faillite par tranches de source2")
-           data = [trace]
-           fig = go.Figure(data=data,layout=layout)
-           st.plotly_chart(fig) 
+        CODE_GENDER = st.selectbox("CODE_GENDER",options=['M' , 'F'])
+        AGE = st.slider("AGE", 1, 100,1)
+        CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5,1)
+        NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])
+        ORGANIZATION_TYPE = st.selectbox("ORGANIZATION_TYPE",options=['Construction', 'Electricity', 'Government/Industry', 'Medicine', 
+                                                                      'Other/Construction/Agriculture', 'School', 'Services', 
+                                                                      'Trade/Business'])
+        OCCUPATION_TYPE = st.selectbox("OCCUPATION_TYPE",options=['Accountants/HR staff/Managers','Core/Sales staff','Laborers',
+                                                                  'Medicine staff','Private service staff' , 'Tech Staff'])
+        NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married'])
+        AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000,1000)
+        INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100,10)
+        DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100,10)
+        EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100,10)
+        EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100,10)
+        EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100,10)   
+              
         
-        if focus_var == 'EXT_SOURCE_3':
-           source3 = application[['TARGET', 'EXT_SOURCE_3']]
-           source3['SOURCE_BINNED'] = pd.cut(source3['EXT_SOURCE_3'], bins = np.linspace(0.2, 0.8, num = 15))
-           ext_source3  = source3.groupby('SOURCE_BINNED').mean()                      
-           trace = go.Bar(x=ext_source3.index.astype(str),y=ext_source3['TARGET'].values*100,showlegend = True)
-           layout = go.Layout(title = "% Faillite par tranches de source3")
-           data = [trace]
-           fig = go.Figure(data=data,layout=layout)
-           st.plotly_chart(fig)
+        
            
 
 if __name__ == '__main__':
