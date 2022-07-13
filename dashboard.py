@@ -170,28 +170,37 @@ def main():
         # Saisie des informations Client dans X2 pour prédiction nouvelle
         X2 = X1.copy()
                 
-        AGE = st.slider("AGE", 1, 100, X2['AGE'].values)
-        CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5, X2['CNT_CHILDREN'].values)
-        DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100, X2['DEF_30_CNT_SOCIAL_CIRCLE'].values)
+        AGE = st.slider("AGE", 1, 100, 25)
+        X2['AGE'] = AGE
         
-        NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])
+        CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5, 3)
+        X2['CNT_CHILDREN'] = CNT_CHILDREN
+        
+        DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100, 5)
+        X2['DEF_30_CNT_SOCIAL_CIRCLE'] = DEF_30_CNT_SOCIAL_CIRCLE
+        
+        NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])        
+        
         ORGANIZATION_TYPE = st.selectbox("ORGANIZATION_TYPE",options=['Construction', 'Electricity', 'Government/Industry', 'Medicine', 
                                                                       'Other/Construction/Agriculture', 'School', 'Services', 
-                                                                      'Trade/Business'])
+                                                                      'Trade/Business'])    
+        
+        
         OCCUPATION_TYPE = st.selectbox("OCCUPATION_TYPE",options=['Accountants/HR staff/Managers','Core/Sales staff','Laborers',
-                                                                  'Medicine staff','Private service staff' , 'Tech Staff'])
+                                                                  'Medicine staff','Private service staff' , 'Tech Staff'])    
         
-        NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married'])
         
-        AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, X2['AMT_INCOME_TOTAL'].values)
-        INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100, X2['INCOME_CREDIT_PERC'].values)
-        DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100, X2['DAYS_EMPLOYED_PERC'].values)
-        EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100, X2['EXT_SOURCE_1'].values)
-        EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100, X2['EXT_SOURCE_2'].values)
-        EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100, X2['EXT_SOURCE_3'].values)  
+        NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married'])        
         
-        # Scaling pour prédiction
-        CODE_GENDER = 0 if  CODE_GENDER == 'M' else 1
+        AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, 220000)
+        INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100, 220000)
+        DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100, 65)
+        EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100,35)
+        EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100, 35)
+        EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100, 35)  
+        
+        # Encoding for prediction
+        #CODE_GENDER = 0 if  CODE_GENDER == 'M' else 1
         
         NAME_EDUCATION_TYPE_Low_education , NAME_EDUCATION_TYPE_Medium_education , NAME_EDUCATION_TYPE_High_education = 0,0,0
         if NAME_EDUCATION_TYPE == 'Low education':
@@ -200,6 +209,7 @@ def main():
             NAME_EDUCATION_TYPE_Medium_education = 1
         else:
             NAME_EDUCATION_TYPE_High_education = 1
+        X2['NAME_EDUCATION_TYPE'] = NAME_EDUCATION_TYPE    
             
         ORGANIZATION_TYPE_Construction, ORGANIZATION_TYPE_Electricity, ORGANIZATION_TYPE_Government_Industry = 0,0,0
         ORGANIZATION_TYPE_Medicine, ORGANIZATION_TYPE_Other_Construction_Agriculture, ORGANIZATION_TYPE_School = 0,0,0
@@ -220,6 +230,7 @@ def main():
             ORGANIZATION_TYPE_Services = 1
         elif ORGANIZATION_TYPE == 'Trade/Business':
             ORGANIZATION_TYPE_Trade_Business = 1
+        X2['ORGANIZATION_TYPE'] = ORGANIZATION_TYPE    
             
         OCCUPATION_TYPE_Accountants_HR_staff_Managers, OCCUPATION_TYPE_Core_Sales_staff, OCCUPATION_TYPE_Laborers = 0,0,0  
         OCCUPATION_TYPE_Medicine_staff, OCCUPATION_TYPE_Private_service_staff, OCCUPATION_TYPE_Tech_Staff = 0,0,0
@@ -235,51 +246,26 @@ def main():
            OCCUPATION_TYPE_Private_service_staff = 1 
         elif OCCUPATION_TYPE ==  'Tech Staff':
            OCCUPATION_TYPE_Tech_Staff = 1
+        X2['OCCUPATION_TYPE'] = OCCUPATION_TYPE
         
         NAME_FAMILY_STATUS = 0 if  NAME_FAMILY_STATUS == 'Single' else 1
+        X2['NAME_FAMILY_STATUS'] = NAME_FAMILY_STATUS
         
         #scaler = StandardScaler()
         #input_data = scaler.fit_transform([[CODE_GENDER,
-        input_data = [CODE_GENDER,
-                                        AGE, 
-                                        CNT_CHILDREN,
-                                        DEF_30_CNT_SOCIAL_CIRCLE,
-                                        NAME_EDUCATION_TYPE_High_education,    
-                                        NAME_EDUCATION_TYPE_Low_education, 
-                                        NAME_EDUCATION_TYPE_Medium_education,                                         
-                                        ORGANIZATION_TYPE_Construction, 
-                                        ORGANIZATION_TYPE_Electricity, 
-                                        ORGANIZATION_TYPE_Government_Industry,
-                                        ORGANIZATION_TYPE_Medicine, 
-                                        ORGANIZATION_TYPE_Other_Construction_Agriculture, 
-                                        ORGANIZATION_TYPE_School,
-                                        ORGANIZATION_TYPE_Services, 
-                                        ORGANIZATION_TYPE_Trade_Business,
-                                        OCCUPATION_TYPE_Accountants_HR_staff_Managers,
-                                        OCCUPATION_TYPE_Core_Sales_staff, 
-                                        OCCUPATION_TYPE_Laborers,
-                                        OCCUPATION_TYPE_Medicine_staff, 
-                                        OCCUPATION_TYPE_Private_service_staff, 
-                                        OCCUPATION_TYPE_Tech_Staff,
-                                        NAME_FAMILY_STATUS,
-                                        AMT_INCOME_TOTAL,
-                                        INCOME_CREDIT_PERC,
-                                        DAYS_EMPLOYED_PERC,
-                                        EXT_SOURCE_1,
-                                        EXT_SOURCE_2,    
-                                        EXT_SOURCE_3
-                                        ]       
-              
-        transparence = prediction(X2)
-        predict_probability = model.predict_proba(X2)
         
-        if transparence == 1:
-           st.subheader('Le client {} aurait une probabilité de faillite de {}%'.format(id_input , round(predict_probability[0][1]*100 , 
-                                                                                                      3)))
-        else:
-           st.subheader('Le client {} aurait une probabilité de remboursement de {}%'.format(id_input, round(predict_probability[0]
-                                                                                                             [0]*100 
-                                                                                                            , 3)))       
-
+             
+        if st.sidebar.button("Another Predict"): 
+        # réalimenter X2 avec les variables saisies
+            transparence = prediction(X2)
+            predict_probability = model.predict_proba(X2)
+        
+            if transparence == 1:
+               st.subheader('Le client {} aurait une faillite avec une probabilité de {}%'.format
+                            (id_input ,round(predict_probability[0][1]*100 , 3)))
+            else:
+               st.subheader('Le client {} aurait remboursement normal avec une probabilité de {}%'.format
+                            (id_input, round(predict_probability[0][0]*100 , 3)))
+  
 if __name__ == '__main__':
     main()
