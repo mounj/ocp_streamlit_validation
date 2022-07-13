@@ -170,8 +170,8 @@ def main():
         # Saisie des informations Client dans X2 pour prédiction nouvelle
         X2 = X1.copy()
                 
-        AGE = st.slider("AGE", 1, 100,X2['AGE'])
-        CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5,X2['CNT_CHILDREN'])
+        AGE = st.slider("AGE", 1, 100,X2['AGE'].value)
+        CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5,X2['CNT_CHILDREN'].value)
         DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100,X2['DEF_30_CNT_SOCIAL_CIRCLE'])
         
         NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])
