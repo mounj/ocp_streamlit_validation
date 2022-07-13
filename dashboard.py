@@ -212,7 +212,7 @@ def main():
             ORGANIZATION_TYPE_School = 1
         elif ORGANIZATION_TYPE == 'Services':
             ORGANIZATION_TYPE_Services = 1
-        elif ORGANIZATION_TYPE == 'Trade/Business'
+        elif ORGANIZATION_TYPE == 'Trade/Business':
             ORGANIZATION_TYPE_Trade_Business = 1
             
         OCCUPATION_TYPE_Accountants_HR_staff_Managers, OCCUPATION_TYPE_Core_Sales_staff, OCCUPATION_TYPE_Laborers = 0,0,0  
