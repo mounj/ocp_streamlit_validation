@@ -9,10 +9,10 @@ import json
 import pickle
 import os
 from PIL import Image
+from sklearn.preprocessing import StandardScaler
 import io
 import plotly.express as px
 import plotly.graph_objs as go
-
 
 st.title('Bienvenue sur Octroi de crédit !')
 
@@ -23,6 +23,8 @@ current_path = os.getcwd()
 credit_path = os.path.join(current_path, 'classifier.pkl')
 with open(credit_path, 'rb') as handle:
     model = pickle.load(handle)
+
+scaler = StandardScaler()
 
 ########################################################
 # Loading images to the website
@@ -231,6 +233,7 @@ def main():
            OCCUPATION_TYPE_Tech_Staff = 1
         
         NAME_FAMILY_STATUS = 0 if  NAME_FAMILY_STATUS == 'Single' else 1
+        
         
         input_data = scaler.transform([[CODE_GENDER,
                                         AGE, 
