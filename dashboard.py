@@ -123,14 +123,14 @@ def main():
         
         if  result == 1:
             if int(X1['TARGET']) == 1: 
-                pred = 'Rejected (TN)'
+                pred = 'Rejected (True Negative)'
             else:
-                pred = 'Approved (FN)'
+                pred = 'Approved (False Negative)'
         else:
             if int(X1['TARGET']) == 1:
-                pred = 'Rejected (FP)'
+                pred = 'Rejected (False Positive)'
             else:
-                pred = 'Approved (TP)'              
+                pred = 'Approved (True Positive)'              
                    
         st.success('Your loan is {}'.format(pred))
 
@@ -142,6 +142,7 @@ def main():
         X1 = application[application['SK_ID_CURR'] == id_input]  
         st.write(X1)
         
+        # SHAP variables locales 
         st.header("Graphique d'explication")
         feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
         st.subheader('Random Forest Classifier:')
@@ -153,7 +154,7 @@ def main():
         #st.plotly_chart(fig)
                    
         
-        st.header("Positionnement du client")
+        st.header("Transparence des données client")
 
         #if focus_var == 'EXT_SOURCE_1':           
         #   source1 = application[['TARGET', 'EXT_SOURCE_1']]
@@ -164,7 +165,8 @@ def main():
         #   data = [trace]
         #   fig = go.Figure(data=data,layout=layout)
         #   st.plotly_chart(fig)
-            
+        
+        # Saisie des informations Client     
         CODE_GENDER = st.selectbox("CODE_GENDER",options=['M' , 'F'])
         AGE = st.slider("AGE", 1, 100,1)
         CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5,1)
@@ -180,8 +182,93 @@ def main():
         DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100,10)
         EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100,10)
         EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100,10)
-        EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100,10)   
-              
+        EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100,10)  
+        
+        # Scaling pour prédiction
+        CODE_GENDER = 0 if  CODE_GENDER == 'M' else 1
+        
+        NAME_EDUCATION_TYPE_Low education , NAME_EDUCATION_TYPE_Medium education , NAME_EDUCATION_TYPE_High education = 0,0,0
+        if NAME_EDUCATION_TYPE == 'Low education':
+            NAME_EDUCATION_TYPE_Low education = 1
+        elif NAME_EDUCATION_TYPE == 'Medium education':
+            NAME_EDUCATION_TYPE_Medium education = 1
+        else:
+            NAME_EDUCATION_TYPE_High education = 1
+            
+        ORGANIZATION_TYPE_Construction, ORGANIZATION_TYPE_Electricity, ORGANIZATION_TYPE_Government/Industry = 0,0,0
+        ORGANIZATION_TYPE_Medicine, ORGANIZATION_TYPE_Other/Construction/Agriculture, ORGANIZATION_TYPE_School = 0,0,0
+        ORGANIZATION_TYPE_Services, ORGANIZATION_TYPE_Trade/Business = 0,0 
+        if ORGANIZATION_TYPE == 'Construction':
+            ORGANIZATION_TYPE_Construction = 1
+        elif ORGANIZATION_TYPE == 'Electricity':
+            ORGANIZATION_TYPE_Electricity = 1
+        elif ORGANIZATION_TYPE ==  'Government/Industry':   
+            ORGANIZATION_TYPE_Government/Industry = 1 
+        elif ORGANIZATION_TYPE == 'Medicine':    
+            ORGANIZATION_TYPE_Medicine = 1
+        elif ORGANIZATION_TYPE == 'Other/Construction/Agriculture':
+            ORGANIZATION_TYPE_Other/Construction/Agriculture = 1
+        elif ORGANIZATION_TYPE ==  'School': 
+            ORGANIZATION_TYPE_School = 1
+        elif ORGANIZATION_TYPE == 'Services':
+            ORGANIZATION_TYPE_Services = 1
+        elif ORGANIZATION_TYPE == 'Trade/Business'
+            ORGANIZATION_TYPE_Trade/Business = 1
+            
+        OCCUPATION_TYPE_Accountants/HR staff/Managers, OCCUPATION_TYPE_Core/Sales staff, OCCUPATION_TYPE_Laborers = 0,0,0  
+        OCCUPATION_TYPE_Medicine staff, OCCUPATION_TYPE_Private service staff, OCCUPATION_TYPE_Tech Staff = 0,0,0
+        if OCCUPATION_TYPE == 'Accountants/HR staff/Managers':
+           OCCUPATION_TYPE_Accountants/HR staff/Managers = 1
+        elif OCCUPATION_TYPE == 'Core/Sales staff':
+           OCCUPATION_TYPE_Core/Sales staff = 1
+        elif OCCUPATION_TYPE == 'Laborers':
+           OCCUPATION_TYPE_Laborers = 1
+        elif OCCUPATION_TYPE == 'Medicine staff':
+           OCCUPATION_TYPE_Medicine staff = 1
+        elif OCCUPATION_TYPE == 'Private service staff'
+           OCCUPATION_TYPE_Private service staff = 1 
+        elif OCCUPATION_TYPE ==  'Tech Staff':
+           OCCUPATION_TYPE_Tech Staff = 1
+        
+        NAME_FAMILY_STATUS = 0 if  NAME_FAMILY_STATUS == 'Single' else 1
+        
+        input_data = scaler.transform([[CODE_GENDER,
+                                        AGE, 
+                                        CNT_CHILDREN,
+                                        NAME_EDUCATION_TYPE_Low education, 
+                                        NAME_EDUCATION_TYPE_Medium education, 
+                                        NAME_EDUCATION_TYPE_High education,
+                                        ORGANIZATION_TYPE_Construction, 
+                                        ORGANIZATION_TYPE_Electricity, 
+                                        ORGANIZATION_TYPE_Government/Industry,
+                                        ORGANIZATION_TYPE_Medicine, 
+                                        ORGANIZATION_TYPE_Other/Construction/Agriculture, 
+                                        ORGANIZATION_TYPE_School,
+                                        ORGANIZATION_TYPE_Services, 
+                                        ORGANIZATION_TYPE_Trade/Business,
+                                        OCCUPATION_TYPE_Accountants/HR staff/Managers,
+                                        OCCUPATION_TYPE_Core/Sales staff, 
+                                        OCCUPATION_TYPE_Laborers,
+                                        OCCUPATION_TYPE_Medicine staff, 
+                                        OCCUPATION_TYPE_Private service staff, 
+                                        OCCUPATION_TYPE_Tech Staff,
+                                        NAME_FAMILY_STATUS,
+                                        AMT_INCOME_TOTAL,
+                                        INCOME_CREDIT_PERC,
+                                        DAYS_EMPLOYED_PERC,
+                                        EXT_SOURCE_1,
+                                        EXT_SOURCE_2,    
+                                        EXT_SOURCE_3
+                                        ]])
+        
+        prediction = model.predict(input_data)
+        predict_probability = model.predict_proba(input_data)
+        
+        if prediction[0] == 1:
+           st.subheader('Client {} aurait une probabilité de faillite de {}%'.format(name , round(predict_probability[0][1]*100 , 3)))
+        else:
+           st.subheader('Client {} aurait une probabilité de remboursement de {}%'.format(name, round(predict_probability[0][0]*100 
+                                                                                                            , 3)))            
         
         
            
