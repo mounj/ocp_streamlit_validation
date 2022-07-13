@@ -268,14 +268,12 @@ def main():
         transparence = prediction(input_data)
         predict_probability = model.predict_proba(input_data)
         
-        if transparence[0] == 1:
-           st.subheader('Client {} aurait une probabilité de faillite de {}%'.format(id_input , round(predict_probability[0][1]*100 , 3)))
+        if transparence == 1:
+           st.subheader('Le client {} aurait une probabilité de faillite de {}%'.format(id_input , round(predict_probability[0][1]*100 , 
+                                                                                                      3)))
         else:
-           st.subheader('Client {} aurait une probabilité de remboursement de {}%'.format(id_input, round(predict_probability[0][0]*100 
-                                                                                                            , 3)))            
-        
-        
-           
+           st.subheader('Le client {} aurait une probabilité de remboursement de {}%'.format(id_input, round(predict_probability[0]0]*100 
+                                                                                                            , 3)))       
 
 if __name__ == '__main__':
     main()
