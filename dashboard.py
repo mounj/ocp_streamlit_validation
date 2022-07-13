@@ -225,7 +225,7 @@ def main():
            OCCUPATION_TYPE_Laborers = 1
         elif OCCUPATION_TYPE == 'Medicine staff':
            OCCUPATION_TYPE_Medicine_staff = 1
-        elif OCCUPATION_TYPE == 'Private service staff'
+        elif OCCUPATION_TYPE == 'Private service staff':
            OCCUPATION_TYPE_Private_service_staff = 1 
         elif OCCUPATION_TYPE ==  'Tech Staff':
            OCCUPATION_TYPE_Tech_Staff = 1
