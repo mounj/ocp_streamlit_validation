@@ -255,7 +255,7 @@ def main():
         #input_data = scaler.fit_transform([[CODE_GENDER,
         
              
-        if st.sidebar.button("Another Predict"): 
+        if st.button("Another Predict"): 
         # réalimenter X2 avec les variables saisies
             transparence = prediction(X2)
             predict_probability = model.predict_proba(X2)
