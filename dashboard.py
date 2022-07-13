@@ -234,8 +234,9 @@ def main():
         
         NAME_FAMILY_STATUS = 0 if  NAME_FAMILY_STATUS == 'Single' else 1
         
-        scaler = StandardScaler()
-        input_data = scaler.fit_transform([[CODE_GENDER,
+        #scaler = StandardScaler()
+        #input_data = scaler.fit_transform([[CODE_GENDER,
+        input_data = [CODE_GENDER,
                                         AGE, 
                                         CNT_CHILDREN,
                                         DEF_30_CNT_SOCIAL_CIRCLE,
@@ -263,7 +264,7 @@ def main():
                                         EXT_SOURCE_1,
                                         EXT_SOURCE_2,    
                                         EXT_SOURCE_3
-                                        ]])       
+                                        ]       
                  
         transparence = prediction(input_data)
         predict_probability = model.predict_proba(input_data)
