@@ -261,10 +261,11 @@ def main():
                                         EXT_SOURCE_3
                                         ]])
         
-        prediction = model.predict(input_data)
+        transparence = prediction(input_data)
+        
         predict_probability = model.predict_proba(input_data)
         
-        if prediction[0] == 1:
+        if transparence[0] == 1:
            st.subheader('Client {} aurait une probabilité de faillite de {}%'.format(name , round(predict_probability[0][1]*100 , 3)))
         else:
            st.subheader('Client {} aurait une probabilité de remboursement de {}%'.format(name, round(predict_probability[0][0]*100 
