@@ -171,6 +171,7 @@ def main():
         CODE_GENDER = st.selectbox("CODE_GENDER",options=['M' , 'F'])
         AGE = st.slider("AGE", 1, 100,1)
         CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5,1)
+        DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100,1)
         NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])
         ORGANIZATION_TYPE = st.selectbox("ORGANIZATION_TYPE",options=['Construction', 'Electricity', 'Government/Industry', 'Medicine', 
                                                                       'Other/Construction/Agriculture', 'School', 'Services', 
