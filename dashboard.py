@@ -28,8 +28,22 @@ def prediction(X):
     prediction = model.predict(X)
     return prediction 
 
+def impPlot(imp, name):
+    figure = px.bar(imp,
+                    x=imp.values,
+                    y=imp.keys(), labels = {'x':'Importance Value', 'index':'Columns'},
+                    text=np.round(imp.values, 2),
+                    title=name + ' Feature Selection Plot',
+                    width=1000, height=600)
+    figure.update_layout({
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+    })
+    st.plotly_chart(figure)
+
 def main_page():
     st.markdown("# Main page 🎈")
+    st.sidebar.markdown("# Main page 🎈")
     st.title('Bienvenue sur Octroi de crédit !')
     
     def chargement_data(path):
@@ -37,7 +51,7 @@ def main_page():
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id
       
-    st.sidebar.markdown("# Main page 🎈")
+    
     
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
 
@@ -105,8 +119,13 @@ def main_page():
     st.success('Your loan is {}'.format(pred))
 
 def page2():
-    st.markdown("# Page 2 ❄️")
-    st.sidebar.markdown("# Page 2 ❄️")
+    st.markdown("#Random Forest model ❄️")
+    st.sidebar.markdown("# Random Forest model ❄️")
+    # SHAP variables locales à mettre
+    st.header("Explication globale du modèle")
+    feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
+    st.subheader('Random Forest Classifier:')
+    impPlot(feat_importances, 'Random Forest Classifier')
 
 def page3():
     st.markdown("# Page 3 🎉")
