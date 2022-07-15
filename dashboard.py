@@ -44,10 +44,10 @@ def main_page():
     examples_file = 'df1.csv'
     dataframe, liste_id = chargement_data(examples_file)
 
-    st.sidebar.image(image)
-    st.sidebar.markdown("🛰️ **Navigation**")
+    st.image(image)
+    st.markdown("🛰️ **Navigation**")
 
-    id_input = st.sidebar.selectbox(
+    id_input = st.selectbox(
         'Choisissez le client que vous souhaitez visualiser',
         liste_id)
 
@@ -58,7 +58,7 @@ def main_page():
     
     result =""
     
-    #if st.sidebar.button("Predict"):
+    #if st.button("Predict"):
     X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
     X = X1[['CODE_GENDER', 
         'AGE',
