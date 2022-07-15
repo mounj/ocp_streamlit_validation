@@ -20,8 +20,9 @@ credit_path = os.path.join(current_path, 'classifier.pkl')
 with open(credit_path, 'rb') as handle:
     model = pickle.load(handle)
  
-
-#st.session_state.client = 0
+# Initialization
+if 'client' not in st.session_state:
+    st.session_state['client'] = 0
 
 ########################################################
 # Loading images to the website
@@ -74,17 +75,12 @@ def main_page():
     #examples_file = 'df1.csv'
     #dataframe, liste_id = chargement_data(examples_file)
 
-    #st.image(image)
-    #st.markdown("🛰️ **Navigation**")
-
     #id_input = st.selectbox(
     #    'Choisissez le client que vous souhaitez visualiser',
     #    liste_id)
     
-    id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id, key="leclient",     
-                            format_func=lambda x: x, on_change=capture_change_value)
-    
-    #st.session_state.client = id_input
+    id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)  
+    st.session_state.client = id_input
     
     #capture_return_value(id_input)
 
