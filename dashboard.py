@@ -25,6 +25,7 @@ with open(credit_path, 'rb') as handle:
 # Loading images to the website
 ########################################################
 image = Image.open("images/credit.jpg")
+st.sidebar.image(image)
 
 def prediction(X):
     prediction = model.predict(X)
@@ -62,7 +63,7 @@ def main_page():
     #examples_file = 'df1.csv'
     #dataframe, liste_id = chargement_data(examples_file)
 
-    st.image(image)
+    #st.image(image)
     #st.markdown("🛰️ **Navigation**")
 
     id_input = st.selectbox(
@@ -130,8 +131,10 @@ def page2():
     st.markdown("#Random Forest model ❄️")
     st.sidebar.markdown("# Random Forest model ❄️")
     
-    # récup client
+    # récupération du client choisi sur la 1ère page
     id_input = st.session_state.client
+    st.write ()
+    st.write('Pour notre client : ', id_input, 'voici les datas et leurs poids dans le modèle Random Forest ! ')
     
     X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
     X = X1[['CODE_GENDER', 
