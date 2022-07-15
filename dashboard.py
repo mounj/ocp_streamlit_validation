@@ -43,18 +43,16 @@ def impPlot(imp, name):
         'paper_bgcolor': 'rgba(0, 0, 0, 0)',
     })
     st.plotly_chart(figure)
+    
+def chargement_data(path):
+        dataframe = pd.read_csv(path)
+        liste_id = dataframe['SK_ID_CURR'].tolist()
+        return dataframe, liste_id    
 
 def main_page():
     st.markdown("# Main page 🎈")
     st.sidebar.markdown("# Main page 🎈")
     st.title('Bienvenue sur Octroi de crédit !')
-    
-    def chargement_data(path):
-        dataframe = pd.read_csv(path)
-        liste_id = dataframe['SK_ID_CURR'].tolist()
-        return dataframe, liste_id
-      
-    
     
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
 
@@ -120,6 +118,7 @@ def main_page():
              pred = 'Approved (True Positive)'              
                    
     st.success('Your loan is {}'.format(pred))
+    return X
 
 def page2():
     st.markdown("#Random Forest model ❄️")
