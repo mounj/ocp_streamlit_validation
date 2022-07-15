@@ -19,10 +19,7 @@ current_path = os.getcwd()
 credit_path = os.path.join(current_path, 'classifier.pkl')
 with open(credit_path, 'rb') as handle:
     model = pickle.load(handle)
-    
-    
-examples_file = 'df1.csv'
-dataframe, liste_id = chargement_data(examples_file)    
+ 
     
 ########################################################
 # Loading images to the website
@@ -49,7 +46,10 @@ def impPlot(imp, name):
 def chargement_data(path):
         dataframe = pd.read_csv(path)
         liste_id = dataframe['SK_ID_CURR'].tolist()
-        return dataframe, liste_id    
+        return dataframe, liste_id 
+    
+examples_file = 'df1.csv'
+dataframe, liste_id = chargement_data(examples_file)     
 
 def main_page():
     #@st.cache()
