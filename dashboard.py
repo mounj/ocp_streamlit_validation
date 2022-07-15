@@ -167,9 +167,10 @@ def main():
         #input_data = scaler.fit_transform([[CODE_GENDER,
         
              
-    if st.button("Transparence Client"):
-        client = id_input
-        main1(client)
+         if st.button("Transparence Client"):
+            __name__ = 'main1'
+            client = id_input
+            main1(client)
         
 def main1():      
             st.subheader("Transparence du client ")    
