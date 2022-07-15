@@ -167,7 +167,7 @@ def main():
         #input_data = scaler.fit_transform([[CODE_GENDER,
         
              
-        if st.button("Transparence Client"): 
+    if st.button("Transparence Client"): 
         # informations du client
             st.header("Informations du client")
             examples_file = 'application_API.csv'
