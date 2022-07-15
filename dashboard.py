@@ -124,7 +124,7 @@ def main_page():
     
     # Session State pour sauvegarde du no client choisi
     if 'client' not in st.session_state:
-    st.session_state.client = id_input
+        st.session_state.client = id_input
     
 def page2():
     st.markdown("#Random Forest model ❄️")
