@@ -21,7 +21,7 @@ with open(credit_path, 'rb') as handle:
     model = pickle.load(handle)
  
 
-st.session_state.client = 0
+#st.session_state.client = 0
 
 ########################################################
 # Loading images to the website
@@ -50,9 +50,18 @@ def chargement_data(path):
         dataframe = pd.read_csv(path)
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id 
+
+def capture_change_value():
+    st.session_state.client.append(st.session_state.client)
+    st.text(f"client: {st.session_state.client}")
+        
+def capture_return_value(item):
+    st.session_state.client.append(item)
+    st.text(f"Return values: {st.session_state.client}")
     
 examples_file = 'df1.csv'
-dataframe, liste_id = chargement_data(examples_file)     
+dataframe, liste_id = chargement_data(examples_file) 
+
 
 def main_page():
     #@st.cache()
@@ -68,9 +77,13 @@ def main_page():
     #st.image(image)
     #st.markdown("🛰️ **Navigation**")
 
-    id_input = st.selectbox(
-        'Choisissez le client que vous souhaitez visualiser',
-        liste_id)
+    #id_input = st.selectbox(
+    #    'Choisissez le client que vous souhaitez visualiser',
+    #    liste_id)
+    
+    id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id, key="leclient",     
+                            format_func=lambda x: x, on_change=capture_change_value)
+    capture_return_value(id_input)
 
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
         ['SK_ID_CURR'], axis=1)
@@ -127,7 +140,7 @@ def main_page():
     
     # Session State pour sauvegarde du no client choisi
     #if 'client' not in st.session_state:
-    st.session_state.client = id_input
+    #st.session_state.client = id_input
     
 def page2():
     st.markdown("#Random Forest model ❄️")
