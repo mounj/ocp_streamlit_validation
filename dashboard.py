@@ -70,7 +70,7 @@ def main_page():
 
     id_input = st.selectbox(
         'Choisissez le client que vous souhaitez visualiser',
-        liste_id, key=id_input)
+        liste_id)
 
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
         ['SK_ID_CURR'], axis=1)
