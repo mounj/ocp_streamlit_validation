@@ -20,12 +20,14 @@ credit_path = os.path.join(current_path, 'classifier.pkl')
 with open(credit_path, 'rb') as handle:
     model = pickle.load(handle)
     
+    
+examples_file = 'df1.csv'
+dataframe, liste_id = chargement_data(examples_file)    
+    
 ########################################################
 # Loading images to the website
 ########################################################
 image = Image.open("images/credit.jpg")
-
-@st.cache()
 
 def prediction(X):
     prediction = model.predict(X)
@@ -50,17 +52,18 @@ def chargement_data(path):
         return dataframe, liste_id    
 
 def main_page():
+    #@st.cache()
     st.markdown("# Main page 🎈")
     st.sidebar.markdown("# Main page 🎈")
     st.title('Bienvenue sur Octroi de crédit !')
     
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
 
-    examples_file = 'df1.csv'
-    dataframe, liste_id = chargement_data(examples_file)
+    #examples_file = 'df1.csv'
+    #dataframe, liste_id = chargement_data(examples_file)
 
     st.image(image)
-    st.markdown("🛰️ **Navigation**")
+    #st.markdown("🛰️ **Navigation**")
 
     id_input = st.selectbox(
         'Choisissez le client que vous souhaitez visualiser',
@@ -118,13 +121,49 @@ def main_page():
              pred = 'Approved (True Positive)'              
                    
     st.success('Your loan is {}'.format(pred))
-    return X
-
+    
+    # Session State pour sauvegarde du no client choisi
+    if 'client' not in st.session_state:
+    st.session_state.client = id_input
+    
 def page2():
     st.markdown("#Random Forest model ❄️")
     st.sidebar.markdown("# Random Forest model ❄️")
-    # SHAP variables locales à mettre
-    st.header("Explication globale du modèle")
+    
+    # récup client
+    id_input = st.session_state.client
+    
+    X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
+    X = X1[['CODE_GENDER', 
+        'AGE',
+        'CNT_CHILDREN', 
+        'DEF_30_CNT_SOCIAL_CIRCLE',
+         'NAME_EDUCATION_TYPE_High education',  
+         'NAME_EDUCATION_TYPE_Low education',  
+         'NAME_EDUCATION_TYPE_Medium education',  
+         'ORGANIZATION_TYPE_Construction',  
+         'ORGANIZATION_TYPE_Electricity',  
+         'ORGANIZATION_TYPE_Government/Industry',  
+         'ORGANIZATION_TYPE_Medicine',  
+         'ORGANIZATION_TYPE_Other/Construction/Agriculture',  
+         'ORGANIZATION_TYPE_School',  
+         'ORGANIZATION_TYPE_Services',  
+         'ORGANIZATION_TYPE_Trade/Business', 
+         'OCCUPATION_TYPE_Accountants/HR staff/Managers', 
+         'OCCUPATION_TYPE_Core/Sales staff',  
+         'OCCUPATION_TYPE_Laborers',  
+         'OCCUPATION_TYPE_Medicine staff',  
+         'OCCUPATION_TYPE_Private service staff' , 
+         'OCCUPATION_TYPE_Tech Staff',
+         'NAME_FAMILY_STATUS',
+          'AMT_INCOME_TOTAL',
+          'INCOME_CREDIT_PERC',
+          'DAYS_EMPLOYED_PERC',
+          'EXT_SOURCE_1',
+          'EXT_SOURCE_2',    
+          'EXT_SOURCE_3']]
+    # SHAP variables locales à positionner
+    st.header("Explication des variables locales du modèle")
     feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
     st.subheader('Random Forest Classifier:')
     impPlot(feat_importances, 'Random Forest Classifier')
