@@ -139,7 +139,7 @@ def page2():
     st.sidebar.markdown("# Page 2 ❄️")
     
     id_input = st.session_state.client   
-    st.write ('Pour le client : ' id_input ' les variables importantes du modèle Random Forest !' )
+    st.write ('Pour le client : ', id_input ,' les variables importantes du modèle Random Forest !' )
     
     # SHAP variables locales 
     st.header("Graphique d'explication du modèle")
@@ -152,7 +152,7 @@ def page3():
     st.sidebar.markdown("# Page 3 🎉")
     
     id_input = st.session_state.client  
-    st.header("Transparence des informationspour le client : " id_input)
+    st.header("Transparence des informationspour le client : " ,id_input)
     
     # informations du client
     examples_file = 'application_API.csv'
