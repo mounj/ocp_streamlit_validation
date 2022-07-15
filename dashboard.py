@@ -167,62 +167,58 @@ def main():
         #input_data = scaler.fit_transform([[CODE_GENDER,
         
              
-         if st.button("Transparence Client"):
-            __name__ = 'main1'
-            client = id_input
-            main1(client)
-        
-def main1():      
-            st.subheader("Transparence du client ")    
-# informations du client
-            examples_file = 'application_API.csv'
-            application, liste_id = chargement_data(examples_file)
-            application = application[~((application['EXT_SOURCE_1'].isnull()))]
-            X1 = application[application['SK_ID_CURR'] == id_input]  
-            st.write(X1)
-                    # réalimenter X2 avec les variables saisies
-        # Saisie des informations Client dans X2 pour prédiction nouvelle
-            X2 = X1.copy()
+         #if st.button("Transparence Client"):                  
+     
+    st.subheader("Transparence du client ")    
+    # informations du client
+    examples_file = 'application_API.csv'
+    application, liste_id = chargement_data(examples_file)
+    application = application[~((application['EXT_SOURCE_1'].isnull()))]
+    X1 = application[application['SK_ID_CURR'] == id_input]  
+    st.write(X1)
+    # réalimenter X2 avec les variables saisies
+    # Saisie des informations Client dans X2 pour prédiction nouvelle
+    X2 = X1.copy()
                 
-            AGE = st.slider("AGE", 1, 100, 25)
-            X2['AGE'] = AGE
+    AGE = st.slider("AGE", 1, 100, 25)
+    X2['AGE'] = AGE
         
-            CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5, 3)
-            X2['CNT_CHILDREN'] = CNT_CHILDREN
+    CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5, 3)
+    X2['CNT_CHILDREN'] = CNT_CHILDREN
         
-            DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100, 5)
-            X2['DEF_30_CNT_SOCIAL_CIRCLE'] = DEF_30_CNT_SOCIAL_CIRCLE
+    DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100, 5)
+    X2['DEF_30_CNT_SOCIAL_CIRCLE'] = DEF_30_CNT_SOCIAL_CIRCLE
         
-            NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])        
+    NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])        
         
-            ORGANIZATION_TYPE = st.selectbox("ORGANIZATION_TYPE",options=['Construction', 'Electricity', 'Government/Industry',
+    ORGANIZATION_TYPE = st.selectbox("ORGANIZATION_TYPE",options=['Construction', 'Electricity', 'Government/Industry',
                                                                           'Medicine', 
                                                                       'Other/Construction/Agriculture', 'School', 'Services', 
                                                                       'Trade/Business'])    
         
-            OCCUPATION_TYPE = st.selectbox("OCCUPATION_TYPE",options=['Accountants/HR staff/Managers','Core/Sales staff','Laborers',
+    OCCUPATION_TYPE = st.selectbox("OCCUPATION_TYPE",options=['Accountants/HR staff/Managers','Core/Sales staff','Laborers',
                                                                   'Medicine staff','Private service staff' , 'Tech Staff'])    
         
-            NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married'])        
+    NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married'])        
         
-            AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, 220000)
-            INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100, 220000)
-            DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100, 65)
-            EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100,35)
-            EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100, 35)
-            EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100, 35)  
+    AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, 220000)
+    INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100, 220000)
+    DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100, 65)
+    EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100,35)
+    EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100, 35)
+    EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100, 35)  
         
-        # Encoding for prediction
-        #CODE_GENDER = 0 if  CODE_GENDER == 'M' else 1
+    # Encoding for prediction
+    #CODE_GENDER = 0 if  CODE_GENDER == 'M' else 1
         
-            NAME_EDUCATION_TYPE_Low_education , NAME_EDUCATION_TYPE_Medium_education , NAME_EDUCATION_TYPE_High_education = 0,0,0
-            if NAME_EDUCATION_TYPE == 'Low education':
-              NAME_EDUCATION_TYPE_Low_education = 1
-            elif NAME_EDUCATION_TYPE == 'Medium education':
-              NAME_EDUCATION_TYPE_Medium_education = 1
-            else:
-              NAME_EDUCATION_TYPE_High_education = 1
-            X2['NAME_EDUCATION_TYPE'] = NAME_EDUCATION_TYPE    
+    NAME_EDUCATION_TYPE_Low_education , NAME_EDUCATION_TYPE_Medium_education , NAME_EDUCATION_TYPE_High_education = 0,0,0
+    if NAME_EDUCATION_TYPE == 'Low education':
+       NAME_EDUCATION_TYPE_Low_education = 1
+    elif NAME_EDUCATION_TYPE == 'Medium education':
+       NAME_EDUCATION_TYPE_Medium_education = 1
+    else:
+       NAME_EDUCATION_TYPE_High_education = 1
+    X2['NAME_EDUCATION_TYPE'] = NAME_EDUCATION_TYPE    
             
             ORGANIZATION_TYPE_Construction, ORGANIZATION_TYPE_Electricity, ORGANIZATION_TYPE_Government_Industry = 0,0,0
             ORGANIZATION_TYPE_Medicine, ORGANIZATION_TYPE_Other_Construction_Agriculture, ORGANIZATION_TYPE_School = 0,0,0
@@ -275,5 +271,4 @@ def main1():
   
 if __name__ == '__main__':
     main()
-else:
-    main1(client)
+
