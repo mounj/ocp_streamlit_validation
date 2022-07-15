@@ -12,13 +12,14 @@ import io
 import plotly.express as px
 import plotly.graph_objs as go
 
+@st.cache()
 # loading the trained model
 #with open(r'C:\Users\Catherine\Credit\classifier.pkl', 'rb') 
 current_path = os.getcwd()
 credit_path = os.path.join(current_path, 'classifier.pkl')
 with open(credit_path, 'rb') as handle:
     model = pickle.load(handle)
-
+    
 ########################################################
 # Loading images to the website
 ########################################################
