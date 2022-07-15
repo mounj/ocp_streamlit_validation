@@ -83,7 +83,10 @@ def main_page():
     
     id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id, key="leclient",     
                             format_func=lambda x: x, on_change=capture_change_value)
-    capture_return_value(id_input)
+    
+    #st.session_state.client = id_input
+    
+    #capture_return_value(id_input)
 
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
         ['SK_ID_CURR'], axis=1)
