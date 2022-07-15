@@ -20,7 +20,9 @@ credit_path = os.path.join(current_path, 'classifier.pkl')
 with open(credit_path, 'rb') as handle:
     model = pickle.load(handle)
  
-    
+
+st.session_state.client = 0
+
 ########################################################
 # Loading images to the website
 ########################################################
@@ -68,7 +70,7 @@ def main_page():
 
     id_input = st.selectbox(
         'Choisissez le client que vous souhaitez visualiser',
-        liste_id)
+        liste_id, key=id_input)
 
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
         ['SK_ID_CURR'], axis=1)
@@ -124,8 +126,8 @@ def main_page():
     st.success('Your loan is {}'.format(pred))
     
     # Session State pour sauvegarde du no client choisi
-    if 'client' not in st.session_state:
-        st.session_state.client = id_input
+    #if 'client' not in st.session_state:
+    st.session_state.client = id_input
     
 def page2():
     st.markdown("#Random Forest model ❄️")
