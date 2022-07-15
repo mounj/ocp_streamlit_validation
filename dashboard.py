@@ -12,7 +12,7 @@ import io
 import plotly.express as px
 import plotly.graph_objs as go
 
-@st.cache()
+
 # loading the trained model
 #with open(r'C:\Users\Catherine\Credit\classifier.pkl', 'rb') 
 current_path = os.getcwd()
@@ -24,6 +24,8 @@ with open(credit_path, 'rb') as handle:
 # Loading images to the website
 ########################################################
 image = Image.open("images/credit.jpg")
+
+@st.cache()
 
 def prediction(X):
     prediction = model.predict(X)
