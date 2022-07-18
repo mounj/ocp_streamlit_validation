@@ -61,7 +61,7 @@ dataframe, liste_id = chargement_data(examples_file)
 
 
 def main_page():
-    @st.cache()
+    #@st.cache()
     st.markdown("# Octroi crédit 🎈")
     st.sidebar.markdown("# Octroi crédit 🎈")
     st.title('Bienvenue sur Octroi de crédit !')
