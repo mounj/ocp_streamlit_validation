@@ -185,7 +185,7 @@ def page2():
     explainer = shap.TreeExplainer(model)
         
     # Calculate Shap values
-    choosen_instance = X.loc[[1]]
+    choosen_instance = X 
     shap_values = explainer.shap_values(choosen_instance)
     #shap.initjs()
     #shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance)
