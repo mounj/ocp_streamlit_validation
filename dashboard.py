@@ -12,7 +12,7 @@ from sklearn.preprocessing import StandardScaler
 import io
 import plotly.express as px
 import plotly.graph_objs as go
-import streamlit.components as components
+import streamlit.components.v1 as components
 
 # Chargement du modèle
 current_path = os.getcwd()
