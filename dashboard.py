@@ -59,8 +59,8 @@ dataframe, liste_id = chargement_data(examples_file)
 
 def main_page():
     #@st.cache()
-    st.markdown("# Main page 🎈")
-    st.sidebar.markdown("# Main page 🎈")
+    st.markdown("# Octroi crédit 🎈")
+    st.sidebar.markdown("# Octroi crédit 🎈")
     st.title('Bienvenue sur Octroi de crédit !')
     
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
@@ -68,9 +68,13 @@ def main_page():
     #examples_file = 'df1.csv'
     #dataframe, liste_id = chargement_data(examples_file)
 
-    #id_input = st.selectbox(
-    #    'Choisissez le client que vous souhaitez visualiser',
-    #    liste_id)
+    
+    # Affichage 1ère fois
+    if 'client' not in st.session_state:
+        st.session_state.key = 0
+    else:
+        # Retour pagination
+        id_input = st.session_state.client
     
     id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)  
     st.session_state.client = id_input
@@ -135,8 +139,8 @@ def main_page():
     #st.session_state.client = id_input
     
 def page2():
-    st.markdown("# Page 2 ❄️")
-    st.sidebar.markdown("# Page 2 ❄️")
+    st.markdown("# Variables locales ❄️")
+    st.sidebar.markdown("# Variables locales ❄️")
     
     id_input = st.session_state.client   
     st.write ('Pour le client : ', id_input ,' les variables importantes du modèle Random Forest !' )
@@ -179,8 +183,8 @@ def page2():
     impPlot(feat_importances, 'Random Forest Classifier')
 
 def page3():
-    st.markdown("# Page 3 🎉")
-    st.sidebar.markdown("# Page 3 🎉")
+    st.markdown("# Transparence 🎉")
+    st.sidebar.markdown("# Transparence 🎉")
     
     id_input = st.session_state.client  
     st.header("Transparence des informationspour le client : " ,id_input)
