@@ -6,21 +6,20 @@ import requests
 import json
 import pickle
 import os
+import shap
 from PIL import Image
 from sklearn.preprocessing import StandardScaler
 import io
 import plotly.express as px
 import plotly.graph_objs as go
 
-
-# loading the trained model
-#with open(r'C:\Users\Catherine\Credit\classifier.pkl', 'rb') 
+# Chargement du modèle
 current_path = os.getcwd()
 credit_path = os.path.join(current_path, 'classifier.pkl')
 with open(credit_path, 'rb') as handle:
     model = pickle.load(handle)
  
-# Initialization
+# Initialization de la session client
 if 'client' not in st.session_state:
     st.session_state['client'] = 0
 
@@ -29,6 +28,10 @@ if 'client' not in st.session_state:
 ########################################################
 image = Image.open("images/credit.jpg")
 st.sidebar.image(image)
+
+def st_shap(plot, height=None):
+    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
+    components.html(shap_html, height=height)
 
 def prediction(X):
     prediction = model.predict(X)
@@ -58,7 +61,7 @@ dataframe, liste_id = chargement_data(examples_file)
 
 
 def main_page():
-    #@st.cache()
+    @st.cache()
     st.markdown("# Octroi crédit 🎈")
     st.sidebar.markdown("# Octroi crédit 🎈")
     st.title('Bienvenue sur Octroi de crédit !')
@@ -79,16 +82,12 @@ def main_page():
     id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)  
     st.session_state.client = id_input
     
-    #capture_return_value(id_input)
-
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
         ['SK_ID_CURR'], axis=1)
-    #client_infos = client_infos.to_dict('record')[0]
     client_infos.to_dict(orient = 'records')
     
     result =""
     
-    #if st.button("Predict"):
     X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
     X = X1[['CODE_GENDER', 
         'AGE',
@@ -134,16 +133,15 @@ def main_page():
                    
     st.success('Your loan is {}'.format(pred))
     
-    # Session State pour sauvegarde du no client choisi
-    #if 'client' not in st.session_state:
-    #st.session_state.client = id_input
-    
+        
 def page2():
     st.markdown("# Variables locales ❄️")
     st.sidebar.markdown("# Variables locales ❄️")
     
+        
     id_input = st.session_state.client   
     st.write ('Pour le client : ', id_input ,' les variables importantes du modèle Random Forest !' )
+     
     
     X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
     X = X1[['CODE_GENDER', 
@@ -177,11 +175,29 @@ def page2():
         
     
     # SHAP variables locales 
-    st.header("Graphique d'explication du modèle")
-    feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
-    st.subheader('Random Forest Classifier:')
-    impPlot(feat_importances, 'Random Forest Classifier')
+    st.header("Graphique d'explication du modèle avec SHAP")
+        
+    #feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
+    #st.subheader('Random Forest Classifier:')
+    #impPlot(feat_importances, 'Random Forest Classifier')
 
+    # explain the model's predictions using SHAP
+    explainer = shap.TreeExplainer(model)
+        
+    # Calculate Shap values
+    choosen_instance = X.loc[[1]]
+    shap_values = explainer.shap_values(choosen_instance)
+    #shap.initjs()
+    #shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance)
+    
+    
+    # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
+    st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
+
+    # visualize the training set predictions
+    st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
+    
+    
 def page3():
     st.markdown("# Transparence 🎉")
     st.sidebar.markdown("# Transparence 🎉")
