@@ -6,3 +6,4 @@ streamlit==0.84.0
 scikit-learn
 StandardScaler
 shap
+streamlit.components.v1
