@@ -63,8 +63,6 @@ dataframe, liste_id = chargement_data(examples_file)
 # Pour les informations du client
 examples_file = 'application_API.csv'
 application, liste_id = chargement_data(examples_file)
-application = application[~((application['EXT_SOURCE_1'].isnull()))]
-X_infos_client = application[application['SK_ID_CURR'] == id_input]  
 
 def main_page():
     #@st.cache()
@@ -146,6 +144,9 @@ def page2():
      
     # informations du client
     st.header("Informations du client")
+    application = application[~((application['EXT_SOURCE_1'].isnull()))]
+    application.drop(['Unnamed: 0'], axis=1, inplace= True)
+    X_infos_client = application[application['SK_ID_CURR'] == id_input]  
     st.write(X_infos_client)    
         
         
@@ -214,6 +215,9 @@ def page3():
     
     # informations du client
     st.header("Informations du client")
+    application = application[~((application['EXT_SOURCE_1'].isnull()))]
+    application.drop(['Unnamed: 0'], axis=1, inplace= True)
+    X_infos_client = application[application['SK_ID_CURR'] == id_input]  
     st.write(X_infos_client)
         
     # réalimenter X2 avec les variables saisies
