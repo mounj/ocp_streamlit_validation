@@ -133,10 +133,11 @@ def main_page():
     
         
 def page2():
-    st.markdown("# Variables locales ❄️")
-    st.sidebar.markdown("# Variables locales ❄️")
+    st.markdown("# Interprétation du modèle ❄️")
+    st.sidebar.markdown("# Interprétation du modèle ❄️")
     
-        
+    st.header("Interprétation du modèle")
+    
     id_input = st.session_state.client   
     st.write ('Pour le client : ', id_input ,' poids des variables dans le modèle Random Forest !' )
      
@@ -184,11 +185,10 @@ def page2():
         
     
     # SHAP variables locales 
-    st.header("Graphique d'explication du modèle avec SHAP")
-        
-    #feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
-    #st.subheader('Random Forest Classifier:')
-    #impPlot(feat_importances, 'Random Forest Classifier')
+            
+    feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
+    st.subheader('Variables globales du modèle Random Forest :')
+    impPlot(feat_importances, 'Random Forest Classifier')
 
     # explain the model's predictions using SHAP
     explainer = shap.TreeExplainer(model)
@@ -196,16 +196,12 @@ def page2():
     # Calculate Shap values
     choosen_instance = X 
     shap_values = explainer.shap_values(choosen_instance)
-    #shap.initjs()
-    #shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance)
-    
-    
+       
+    st.subheader('Variables locales du modèle Random Forest :')
     # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
     st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance))
 
-    # visualize the training set predictions
-    st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], X), 400)
-    
+      
     
 def page3():
     st.markdown("# Transparence 🎉")
