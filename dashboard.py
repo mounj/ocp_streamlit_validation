@@ -56,10 +56,15 @@ def chargement_data(path):
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id 
 
- 
+# Pour alimenter le modèle avec les informations du client - les variables sont encodées !!!!!!
 examples_file = 'df1.csv'
 dataframe, liste_id = chargement_data(examples_file) 
 
+# Pour les informations du client
+examples_file = 'application_API.csv'
+application, liste_id = chargement_data(examples_file)
+application = application[~((application['EXT_SOURCE_1'].isnull()))]
+X_infos_client = application[application['SK_ID_CURR'] == id_input]  
 
 def main_page():
     #@st.cache()
@@ -69,10 +74,6 @@ def main_page():
     
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
 
-    #examples_file = 'df1.csv'
-    #dataframe, liste_id = chargement_data(examples_file)
-
-    
     # Affichage 1ère fois
     if 'client' not in st.session_state:
         st.session_state.key = 0
@@ -141,9 +142,14 @@ def page2():
     
         
     id_input = st.session_state.client   
-    st.write ('Pour le client : ', id_input ,' les variables importantes du modèle Random Forest !' )
+    st.write ('Pour le client : ', id_input ,' poids des variables dans le modèle Random Forest !' )
      
-    
+    # informations du client
+    st.header("Informations du client")
+    st.write(X_infos_client)    
+        
+        
+    # SHAP
     X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
     X = X1[['CODE_GENDER', 
         'AGE',
@@ -207,14 +213,12 @@ def page3():
     st.header("Transparence des informationspour le client : " ,id_input)
     
     # informations du client
-    examples_file = 'application_API.csv'
-    application, liste_id = chargement_data(examples_file)
-    application = application[~((application['EXT_SOURCE_1'].isnull()))]
-    X1 = application[application['SK_ID_CURR'] == id_input]  
-    st.write(X1)
+    st.header("Informations du client")
+    st.write(X_infos_client)
+        
     # réalimenter X2 avec les variables saisies
     # Saisie des informations Client dans X2 pour prédiction nouvelle
-    X2 = X1.copy()
+    X2 = X_infos_client.copy()
              
     AGE = st.slider("AGE", 1, 100, 25)
     X2['AGE'] = AGE
