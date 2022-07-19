@@ -60,8 +60,6 @@ def chargement_data(path):
 examples_file = 'df1.csv'
 dataframe, liste_id = chargement_data(examples_file) 
 
-
-
 def main_page():
     #@st.cache()
     st.sidebar.markdown("# main_page")
@@ -200,8 +198,6 @@ def page2():
     # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
     st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance))
 
-      
-    
 def page3():
     st.sidebar.markdown("# page3")
     
