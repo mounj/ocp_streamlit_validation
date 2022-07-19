@@ -64,7 +64,7 @@ dataframe, liste_id = chargement_data(examples_file)
 
 def main_page():
     #@st.cache()
-    st.sidebar.markdown("# Octroi de crédit")
+    st.sidebar.markdown("# main_page")
     
     st.title('Bienvenue sur le calcul de risques de remboursement !')
     
@@ -133,8 +133,8 @@ def main_page():
     
         
 def page2():
-    st.sidebar.markdown("# Interprétation du modèle ")
-    
+    st.sidebar.markdown("# page2")
+        
     st.header("Interprétation du modèle")
     
     id_input = st.session_state.client   
@@ -203,7 +203,7 @@ def page2():
       
     
 def page3():
-    st.sidebar.markdown("# Transparence du client ")
+    st.sidebar.markdown("# page3")
     
     id_input = st.session_state.client  
     st.title("Transparence des informations du client : " ,id_input)
@@ -359,9 +359,9 @@ def page3():
                             (id_input, round(predict_probability[0][0]*100 , 3)))
     
 my_dict = {
-    "Octroi de crédit": main_page,
-    "Modèle de prédiction": page2,
-    "Transparence client": page3,
+    "main_page": main_page,
+    "page2": page2,
+    "page3": page3,
 }
 
 keys = list(my_dict.keys())
