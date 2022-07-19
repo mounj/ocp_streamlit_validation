@@ -202,11 +202,10 @@ def page3():
     st.sidebar.markdown("# page3")
     
     id_input = st.session_state.client  
-    st.title("Transparence des informations du client : " ,id_input)
-    
-    # informations du client
     st.header("Informations du client")
+    st.write("Transparence des informations du client : " ,id_input)
     
+      
     # Pour les informations du client
     examples_file = 'application_API.csv'
     application, liste_id = chargement_data(examples_file)
@@ -219,7 +218,7 @@ def page3():
     # Saisie des informations Client dans X2 pour prédiction nouvelle
     X2 = X_infos_client.copy()
              
-    AGE = st.slider("AGE", 1, 100, 25)
+    AGE = st.slider("AGE", 1, 100, X2['AGE'])
     X2['AGE'] = AGE
         
     CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5, 3)
@@ -345,13 +344,15 @@ def page3():
     
     
     transparence = prediction(X2)
+    st.write('---debug transparence', transparence)
     predict_probability = model.predict_proba(X2)
-        
+    st.write('---debug predict_probability', predict_probability)
+    
     if transparence == 1:
-              st.subheader('Le client {} aurait une faillite avec une probabilité de {}%'.format
+              st.subheader('Le client {} aurait un risque de faillite de {}%'.format
                             (id_input ,round(predict_probability[0][1]*100 , 3)))
     else:
-              st.subheader('Le client {} aurait remboursement normal avec une probabilité de {}%'.format
+              st.subheader('Le client {} aurait une probabilité de remboursement de {}%'.format
                             (id_input, round(predict_probability[0][0]*100 , 3)))
     
 my_dict = {
