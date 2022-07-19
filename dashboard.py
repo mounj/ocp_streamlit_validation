@@ -204,7 +204,7 @@ def page2():
     st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance))
 
     # visualize the training set predictions
-    st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 150)
+    st_shap(shap.force_plot(explainer.expected_value, shap_values[1], X), 200)
     
     
 def page3():
