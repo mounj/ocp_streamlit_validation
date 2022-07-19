@@ -186,7 +186,7 @@ def page2():
     # SHAP variables locales 
             
     feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
-    st.subheader('Variables globales du modèle Random Forest :')
+    st.header('Variables globales du modèle Random Forest :')
     impPlot(feat_importances, 'Random Forest Classifier')
 
     # explain the model's predictions using SHAP
@@ -316,6 +316,37 @@ def page3():
        
     NAME_FAMILY_STATUS = 0 if  NAME_FAMILY_STATUS == 'Single' else 1
     X2['NAME_FAMILY_STATUS'] = NAME_FAMILY_STATUS
+    
+    
+    X2 = X2[['CODE_GENDER', 
+        'AGE',
+        'CNT_CHILDREN', 
+        'DEF_30_CNT_SOCIAL_CIRCLE',
+         'NAME_EDUCATION_TYPE_High education',  
+         'NAME_EDUCATION_TYPE_Low education',  
+         'NAME_EDUCATION_TYPE_Medium education',  
+         'ORGANIZATION_TYPE_Construction',  
+         'ORGANIZATION_TYPE_Electricity',  
+         'ORGANIZATION_TYPE_Government/Industry',  
+         'ORGANIZATION_TYPE_Medicine',  
+         'ORGANIZATION_TYPE_Other/Construction/Agriculture',  
+         'ORGANIZATION_TYPE_School',  
+         'ORGANIZATION_TYPE_Services',  
+         'ORGANIZATION_TYPE_Trade/Business', 
+         'OCCUPATION_TYPE_Accountants/HR staff/Managers', 
+         'OCCUPATION_TYPE_Core/Sales staff',  
+         'OCCUPATION_TYPE_Laborers',  
+         'OCCUPATION_TYPE_Medicine staff',  
+         'OCCUPATION_TYPE_Private service staff' , 
+         'OCCUPATION_TYPE_Tech Staff',
+         'NAME_FAMILY_STATUS',
+          'AMT_INCOME_TOTAL',
+          'INCOME_CREDIT_PERC',
+          'DAYS_EMPLOYED_PERC',
+          'EXT_SOURCE_1',
+          'EXT_SOURCE_2',    
+          'EXT_SOURCE_3']]
+    
     
     transparence = prediction(X2)
     predict_probability = model.predict_proba(X2)
