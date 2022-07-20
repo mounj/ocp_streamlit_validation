@@ -61,8 +61,7 @@ examples_file = 'df1.csv'
 dataframe, liste_id = chargement_data(examples_file) 
 
 def main_page():
-    #@st.cache()
-    st.sidebar.markdown("# main_page")
+    st.sidebar.markdown("# Octroi de crédit")
     
     st.title('Bienvenue sur le calcul de risques de remboursement !')
     
@@ -133,10 +132,10 @@ def main_page():
 def page2():
     st.sidebar.markdown("# page2")
         
-    st.header("Interprétation du modèle")
+    st.title("Interprétation du modèle")
     
     id_input = st.session_state.client   
-    st.write ('Pour le client : ', id_input ,' poids des variables dans le modèle Random Forest !' )
+    st.write ('Pour le client  ', id_input ,' poids des variables dans le modèle Random Forest !' )
      
     # informations du client
     st.header("Informations du client")
@@ -203,7 +202,7 @@ def page3():
     
     id_input = st.session_state.client  
     st.header("Informations du client")
-    st.write("Transparence des informations du client : " ,id_input)
+    st.write("Transparence des informations du client  " ,id_input)
     
       
     # Pour les informations du client
@@ -356,7 +355,7 @@ def page3():
                             (id_input, round(predict_probability[0][0]*100 , 2)))
     
 my_dict = {
-    "main_page": main_page,
+    "Octroi de crédit": main_page,
     "page2": page2,
     "page3": page3,
 }
