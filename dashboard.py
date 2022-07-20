@@ -19,8 +19,7 @@ current_path = os.getcwd()
 credit_path = os.path.join(current_path, 'classifier.pkl')
 with open(credit_path, 'rb') as handle:
     model = pickle.load(handle)
- 
-
+    
 ########################################################
 # Loading images to the website
 ########################################################
@@ -128,7 +127,7 @@ def main_page():
     
         
 def page2():
-    st.sidebar.markdown("# page2")
+    st.sidebar.markdown("# Interprétation du modèle")
         
     st.title("Interprétation du modèle")
     
@@ -195,7 +194,7 @@ def page2():
     st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance))
 
 def page3():
-    st.sidebar.markdown("# page3")
+    st.sidebar.markdown("# Transparence")
     
     id_input = st.session_state.client  
     st.header("Informations du client")
@@ -319,7 +318,7 @@ def page3():
     #           OCCUPATION_TYPE_Tech_Staff = 1
     #           X2['OCCUPATION_TYPE_Tech Staff'] = 1
      
-    X2 = X2[['CODE_GENDER', 
+    X3 = X2[['CODE_GENDER', 
         'AGE',
         'CNT_CHILDREN', 
         'DEF_30_CNT_SOCIAL_CIRCLE',
@@ -349,9 +348,10 @@ def page3():
           'EXT_SOURCE_3']]
     
     
-    transparence = prediction(X2)
+    transparence = prediction(X3)
     st.write('---debug prediction ', transparence)
-    predict_probability = model.predict_proba(X2)
+    
+    predict_probability = model.predict_proba(X3)
     st.write('---debug predict_probability', predict_probability)
     
     if transparence == 1:
@@ -363,8 +363,8 @@ def page3():
     
 my_dict = {
     "Octroi de crédit": main_page,
-    "page2": page2,
-    "page3": page3,
+    "Interprétation du modèle": page2,
+    "Transparence": page3,
 }
 
 keys = list(my_dict.keys())
