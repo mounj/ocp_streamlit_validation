@@ -218,7 +218,7 @@ def page3():
     # Saisie des informations Client dans X2 pour prédiction nouvelle
     X2 = X_infos_client.copy()
              
-    AGE = st.slider("AGE", 1, 100, X2['AGE'])
+    AGE = st.slider("AGE", 1, 100, 25)
     X2['AGE'] = AGE
         
     CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5, 3)
