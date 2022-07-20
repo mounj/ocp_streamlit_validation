@@ -73,6 +73,7 @@ def main_page():
     else:
         # Retour pagination
         id_input = st.session_state.client
+        st.write ('---debug client retour pagination ' ,id_input)
     
     id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)  
     st.session_state.client = id_input
@@ -139,10 +140,9 @@ def page2():
      
     # informations du client
     st.header("Informations du client")
-    # Pour les informations du client
     examples_file = 'application_API.csv'
     application, liste_id = chargement_data(examples_file)
-    application = application[~((application['EXT_SOURCE_1'].isnull()))]
+    #application = application[~((application['EXT_SOURCE_1'].isnull()))]
     application.drop(['Unnamed: 0'], axis=1, inplace= True)
     X_infos_client = application[application['SK_ID_CURR'] == id_input]  
     st.write(X_infos_client)    
@@ -226,7 +226,7 @@ def page3():
     #DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100, 5)
     #X2['DEF_30_CNT_SOCIAL_CIRCLE'] = DEF_30_CNT_SOCIAL_CIRCLE
         
-    NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])        
+            
      
     #ORGANIZATION_TYPE = st.selectbox("ORGANIZATION_TYPE",options=['Construction', 'Electricity', 'Government/Industry',
     #                                                                      'Medicine', 
@@ -234,29 +234,43 @@ def page3():
     #                                                                  'Trade/Business'])    
         
     #OCCUPATION_TYPE = st.selectbox("OCCUPATION_TYPE",options=['Accountants/HR staff/Managers','Core/Sales staff','Laborers',
-    #                                                              'Medicine staff','Private service staff' , 'Tech Staff'])    
-        
-    NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married'])        
-        
+    #                                                              'Medicine staff','Private service staff' , 'Tech Staff'])
+    
+    NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married']) 
+    NAME_FAMILY_STATUS = 0 if  NAME_FAMILY_STATUS == 'Single' else 1
+    X2['NAME_FAMILY_STATUS'] = NAME_FAMILY_STATUS    
+             
+    
     AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, 220000)
+    X2['AMT_INCOME_TOTAL'] =  AMT_INCOME_TOTAL
+    
     INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100, 220000)
+    X2['INCOME_CREDIT_PERC'] = INCOME_CREDIT_PERC
+    
     #DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100, 5)
+    
     EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100,35)
+    X2['EXT_SOURCE_1'] = EXT_SOURCE_1
+    
     EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100, 35)
+    X2['EXT_SOURCE_2'] = EXT_SOURCE_2
+    
     EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100, 35)  
-        
+    X2['EXT_SOURCE_3'] = EXT_SOURCE_3
+    
     # Encoding for prediction
     #CODE_GENDER = 0 if  CODE_GENDER == 'M' else 1
-        
+    
+    NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])
     NAME_EDUCATION_TYPE_Low_education , NAME_EDUCATION_TYPE_Medium_education , NAME_EDUCATION_TYPE_High_education = 0,0,0
     if NAME_EDUCATION_TYPE == 'Low education':
-         NAME_EDUCATION_TYPE_Low_education = 1
+         #NAME_EDUCATION_TYPE_Low_education = 1
          X2['NAME_EDUCATION_TYPE_Low education'] = 1   
     elif NAME_EDUCATION_TYPE == 'Medium education':
-         NAME_EDUCATION_TYPE_Medium_education = 1
+         #NAME_EDUCATION_TYPE_Medium_education = 1
          X2['NAME_EDUCATION_TYPE_Medium education'] = 1       
     else:
-         NAME_EDUCATION_TYPE_High_education = 1
+         #NAME_EDUCATION_TYPE_High_education = 1
          X2['NAME_EDUCATION_TYPE_High education']   = 1
      
     #ORGANIZATION_TYPE_Construction, ORGANIZATION_TYPE_Electricity, ORGANIZATION_TYPE_Government_Industry = 0,0,0
@@ -307,11 +321,7 @@ def page3():
     #elif OCCUPATION_TYPE ==  'Tech Staff':
     #           OCCUPATION_TYPE_Tech_Staff = 1
     #           X2['OCCUPATION_TYPE_Tech Staff'] = 1
-       
-    NAME_FAMILY_STATUS = 0 if  NAME_FAMILY_STATUS == 'Single' else 1
-    X2['NAME_FAMILY_STATUS'] = NAME_FAMILY_STATUS
-    
-    
+     
     X2 = X2[['CODE_GENDER', 
         'AGE',
         'CNT_CHILDREN', 
