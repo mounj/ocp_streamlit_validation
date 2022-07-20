@@ -240,23 +240,20 @@ def page3():
     AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, 220000)
     X2['AMT_INCOME_TOTAL'] =  AMT_INCOME_TOTAL
     
-    INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 1, 100, 220000)
+    INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 0, 1, 0.2)
     X2['INCOME_CREDIT_PERC'] = INCOME_CREDIT_PERC
     
-    #DAYS_EMPLOYED_PERC = st.slider("DAYS_EMPLOYED_PERC", 1, 100, 5)
-    
-    EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 1, 100,35)
+       
+    EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 0, 1,0.2)
     X2['EXT_SOURCE_1'] = EXT_SOURCE_1
     
-    EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 1, 100, 35)
+    EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 0, 1, 0.2)
     X2['EXT_SOURCE_2'] = EXT_SOURCE_2
     
-    EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 1, 100, 35)  
+    EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 0, 1, 0.2)  
     X2['EXT_SOURCE_3'] = EXT_SOURCE_3
     
-    # Encoding for prediction
-    #CODE_GENDER = 0 if  CODE_GENDER == 'M' else 1
-    
+       
     NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])
     NAME_EDUCATION_TYPE_Low_education , NAME_EDUCATION_TYPE_Medium_education , NAME_EDUCATION_TYPE_High_education = 0,0,0
     if NAME_EDUCATION_TYPE == 'Low education':
@@ -340,12 +337,12 @@ def page3():
          'OCCUPATION_TYPE_Private service staff' , 
          'OCCUPATION_TYPE_Tech Staff',
          'NAME_FAMILY_STATUS',
-          'AMT_INCOME_TOTAL',
-          'INCOME_CREDIT_PERC',
-          'DAYS_EMPLOYED_PERC',
-          'EXT_SOURCE_1',
-          'EXT_SOURCE_2',    
-          'EXT_SOURCE_3']]
+         'AMT_INCOME_TOTAL',
+         'INCOME_CREDIT_PERC',
+         'DAYS_EMPLOYED_PERC',
+         'EXT_SOURCE_1',
+         'EXT_SOURCE_2',    
+         'EXT_SOURCE_3']]
     
     
     transparence = prediction(X3)
