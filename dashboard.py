@@ -20,9 +20,6 @@ credit_path = os.path.join(current_path, 'classifier.pkl')
 with open(credit_path, 'rb') as handle:
     model = pickle.load(handle)
  
-# Initialization de la session client
-if 'client' not in st.session_state:
-    st.session_state['client'] = 0
 
 ########################################################
 # Loading images to the website
