@@ -23,9 +23,7 @@ from PIL import Image
 model = xgb.XGBClassifier()
 model.load_model('classifier_xgb_opt.json')
 
-#Caching the model for faster loading
-@st.cache
-    
+   
 ########################################################
 # Loading images to the website
 ########################################################
