@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import requests
 import json
 import pickle
@@ -13,12 +13,18 @@ import io
 import plotly.express as px
 import plotly.graph_objs as go
 import streamlit.components.v1 as components
+import xgboost as xgb
 
 # Chargement du modèle
-current_path = os.getcwd()
-credit_path = os.path.join(current_path, 'classifier.pkl')
-with open(credit_path, 'rb') as handle:
-    model = pickle.load(handle)
+#current_path = os.getcwd()
+#credit_path = os.path.join(current_path, 'classifier.pkl')
+#with open(credit_path, 'rb') as handle:
+#    model = pickle.load(handle)    
+model = xgb.XGBClassifier()
+model.load_model('classifier_xgb_opt.json')
+
+#Caching the model for faster loading
+@st.cache
     
 ########################################################
 # Loading images to the website
