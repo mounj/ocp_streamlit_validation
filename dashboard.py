@@ -13,7 +13,7 @@ import plotly.express as px
 import plotly.graph_objs as go
 import streamlit.components.v1 as components
 import xgboost as xgb
-import Image
+from PIL import Image
 
 # Chargement du modèle
 #current_path = os.getcwd()
