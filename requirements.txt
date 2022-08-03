@@ -7,3 +7,4 @@ scikit-learn
 StandardScaler
 shap
 xgboost
+PIL
