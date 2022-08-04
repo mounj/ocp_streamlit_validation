@@ -262,13 +262,13 @@ def page3():
     #X2['INCOME_CREDIT_PERC'] = INCOME_CREDIT_PERC
     
        
-    EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 0, 1,0.1)
+    EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 0.1, 1.0,0.1)
     X2['EXT_SOURCE_1'] = EXT_SOURCE_1
     
-    EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 0, 1, 0.1)
+    EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 0.1, 1.0,0.1)
     X2['EXT_SOURCE_2'] = EXT_SOURCE_2
     
-    EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 0, 1, 0.1)  
+    EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 0.1, 1.0,0.1)  
     X2['EXT_SOURCE_3'] = EXT_SOURCE_3
     
        
