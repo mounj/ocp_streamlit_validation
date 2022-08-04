@@ -81,7 +81,7 @@ def main_page():
         
     if 'client' not in st.session_state:
         st.session_state.client = 0
-        default_ix = values.index(100002)
+        default_ix = values.index(100068)
     else:
         # Retour pagination
         id_input = st.session_state.client
