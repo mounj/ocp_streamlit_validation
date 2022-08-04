@@ -81,18 +81,16 @@ def main_page():
         
     if 'client' not in st.session_state:
         st.session_state.client = 0
-        default_ix = values.index(100068)
+        default_ix = values.index('100068')
     else:
         # Retour pagination
         id_input = st.session_state.client
         st.write ('---debug client retour pagination ' ,id_input)
         default_ix = values.index(id_input)
         
-    values = ['<select>',liste_id]
+    values = [liste_id]
     #default_ix = values.index(100068)
-    id_input = st.sidebar.selectbox('Choisissez le client que vous souhaitez visualiser', values, index=default_ix)
-        
-    #id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)
+    id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser', values, index=default_ix)
     st.session_state.client = id_input
     
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
