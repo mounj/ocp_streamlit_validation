@@ -83,9 +83,11 @@ def main_page():
         # Retour pagination
         id_input = st.session_state.client
         st.write ('---debug client retour pagination ' ,id_input)
+        st.session_state.client = id_input
     
-    id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)  
-    st.session_state.client = id_input
+    #id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)  
+    #st.session_state.client = id_input
+    id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)
     
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
         ['SK_ID_CURR'], axis=1)
