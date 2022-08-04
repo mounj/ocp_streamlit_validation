@@ -72,7 +72,7 @@ def main_page():
     st.sidebar.markdown("# Calcul du risque")
     st.write ('---Calcul du risque')
     
-    st.title('Bienvenue sur le calcul de risques de remboursement !')
+    st.title('Bienvenue sur le calcul du risque de remboursement de prêt !')
     
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
 
