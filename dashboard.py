@@ -86,8 +86,10 @@ def main_page():
         st.session_state.client = id_input
     
     #id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)  
-    #st.session_state.client = id_input
+    st.session_state.client = id_input
+    
     id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)
+    st.session_state.client = id_input
     
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
         ['SK_ID_CURR'], axis=1)
