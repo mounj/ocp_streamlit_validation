@@ -239,10 +239,13 @@ def page3():
     #                                                              'Medicine staff','Private service staff' , 'Tech Staff'])
     
     NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married']) 
-    X2['NAME_FAMILY_STATUS_Single'] = 1 if  NAME_FAMILY_STATUS == 'Single' else X2['NAME_FAMILY_STATUS_Married'] = 1
-    #X2['NAME_FAMILY_STATUS'] = NAME_FAMILY_STATUS    
-             
-    
+    if  NAME_FAMILY_STATUS == 'Single':
+        X2['NAME_FAMILY_STATUS_Single'] = 1 
+        
+    if  NAME_FAMILY_STATUS == 'Married':
+        X2['NAME_FAMILY_STATUS_Married'] = 1
+        
+     
     AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, 220000)
     X2['AMT_INCOME_TOTAL'] =  AMT_INCOME_TOTAL
     
