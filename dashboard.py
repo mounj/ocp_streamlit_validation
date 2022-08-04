@@ -183,7 +183,7 @@ def page2():
     st.title("Interprétation du modèle")
     
     id_input = st.session_state.client   
-    st.write ('Pour le client  ', id_input ,' poids des variables dans le modèle XGBOOST' )
+    st.write ('Pour le client  ', id_input ,' poids des variables dans le modèle XGBOOST')
      
     # informations du client
     st.header("Informations du client")
@@ -228,28 +228,21 @@ def page2():
           'EXT_SOURCE_3']]
         
     
-    # SHAP variables globales
-            
-    #eat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
-    st.header('Variables globales du modèle XGBOOST :')
-    #mpPlot(feat_importances, 'XGBOOST Classifier')
+    # Variables globales
+    st.header('Variables globales du modèle XGBOOST :')        
+    feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
+    mpPlot(feat_importances, 'XGBOOST Classifier')
     
     # explain the model's predictions using SHAP
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
-
-    shap.summary_plot(shap_values, X.columns, plot_type="bar")
-    
-    #ABS_SHAP(shap_values,X) 
-    
+   
     st.header('Variables locales du modèle XGBOOST :')
-       
-    # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
     st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
     
-    shap.dependence_plot('EXT_SOURCE_1', shap_values, X)
-    shap.dependence_plot('EXT_SOURCE_2', shap_values, X)
-    shap.dependence_plot('EXT_SOURCE_3', shap_values, X)
+    
+    #shap.dependence_plot('EXT_SOURCE_1', shap_values, X)
+    
     
     
 def page3():
