@@ -249,9 +249,9 @@ def page2():
     # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
     st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
     
-    shap.dependence_plot(“EXT_SOURCE_1”, shap_values, X)
-    shap.dependence_plot(“EXT_SOURCE_2”, shap_values, X)
-    shap.dependence_plot(“EXT_SOURCE_3”, shap_values, X)
+    shap.dependence_plot('EXT_SOURCE_1', shap_values, X)
+    shap.dependence_plot('EXT_SOURCE_2', shap_values, X)
+    shap.dependence_plot('EXT_SOURCE_3', shap_values, X)
     
     # visualize the training set predictions
     #st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
