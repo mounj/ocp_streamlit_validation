@@ -69,8 +69,8 @@ st.write ('---debug les pages')
 
 def main_page():
     
-    st.sidebar.markdown("# main_page")
-    st.write ('---main page')
+    st.sidebar.markdown("# Calcul du risque")
+    st.write ('---Calcul du risque')
     
     st.title('Bienvenue sur le calcul de risques de remboursement !')
     
@@ -384,7 +384,7 @@ def page3():
 
             
 my_dict = {
-    "main_page": main_page,
+    "Calcul du risque": main_page,
     "Interprétation": page2,
     "page3": page3,
 }
