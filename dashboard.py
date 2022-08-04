@@ -373,10 +373,18 @@ def page3():
     transparence = prediction(X3)
     st.write('---debug prediction ', transparence)
     
+    if transparence == 1:
+             pred = 'Rejected'
+        else:
+             pred = 'Approved'
+            
+               
+    st.success('Your loan is {}'.format(pred))
+    
     predict_probability = model.predict_proba(X3)
-    st.write('---debug predict_probability', predict_probability)
+    st.write('Probabilité d"appartenance aux classes : ', predict_probability)
        
-    st.subheader('Le client {} a une probabilité de remboursement de {}%'.format
+    st.subheader('Le client {} a une probabilité de non remboursement de {}%'.format
                             (id_input ,round(predict_probability[0][1]*100 , 2)))
     
 
@@ -384,7 +392,7 @@ def page3():
 my_dict = {
     "Calcul du risque": main_page,
     "Interprétation": page2,
-    "page3": page3,
+    "Transparence": page3,
 }
 
 keys = list(my_dict.keys())
