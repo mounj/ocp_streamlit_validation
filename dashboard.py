@@ -240,9 +240,11 @@ def page2():
     st.header('Variables locales du modèle XGBOOST :')
     st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
     
-    
+    shap.summary_plot(shap_values, X)
     #shap.dependence_plot('EXT_SOURCE_1', shap_values, X)
     
+    shap.dependence_plot("EXT_SOURCE_3", shap_values, X)
+
     
     
 def page3():
