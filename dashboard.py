@@ -238,10 +238,11 @@ def page2():
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
 
-    shap.summary_plot(shap_values, X, plot_type="bar")
+    shap.summary_plot(shap_values, X.columns, plot_type="bar")
+    
     #ABS_SHAP(shap_values,X) 
     
-    st.subheader('Variables locales du modèle XGBOOST :')
+    st.header('Variables locales du modèle XGBOOST :')
        
     # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
     st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
