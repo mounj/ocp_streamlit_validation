@@ -100,7 +100,7 @@ def main_page():
     st.sidebar.markdown("# Calcul du risque")
     #st.write ('---Calcul du risque')
     
-    st.title('Bienvenue sur le calcul du risque de remboursement de prêt !')
+    st.title('Calcul du risque de remboursement de prêt')
     
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
 
@@ -238,14 +238,11 @@ def page2():
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
 
-    #shap.summary_plot(shap_values, X, plot_type="bar")
-    ABS_SHAP(shap_values,X) 
+    shap.summary_plot(shap_values, X, plot_type="bar")
+    #ABS_SHAP(shap_values,X) 
     
     st.subheader('Variables locales du modèle XGBOOST :')
-    #image1 = Image.open("images/remboursement.jpg")
-    image1 = Image.open("remboursement.jpg")
-    st.image(image1)
-    
+       
     # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
     st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
     
@@ -253,9 +250,6 @@ def page2():
     shap.dependence_plot('EXT_SOURCE_2', shap_values, X)
     shap.dependence_plot('EXT_SOURCE_3', shap_values, X)
     
-    # visualize the training set predictions
-    #st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
-        
     
 def page3():
     
