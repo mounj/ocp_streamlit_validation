@@ -142,8 +142,8 @@ def main_page():
         
 def page2():
     
-    st.sidebar.markdown("# page2")
-    st.write ('--- page2')
+    st.sidebar.markdown("# Interprétation")
+    #st.write ('--- Interprétation')
     
     st.title("Interprétation du modèle")
     
@@ -385,7 +385,7 @@ def page3():
             
 my_dict = {
     "main_page": main_page,
-    "page2": page2,
+    "Interprétation": page2,
     "page3": page3,
 }
 
