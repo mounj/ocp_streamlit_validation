@@ -15,6 +15,16 @@ import streamlit.components.v1 as components
 import xgboost as xgb
 from PIL import Image
 
+
+st.write ('---debug chargement image ')
+########################################################
+# Loading images to the website
+########################################################
+image = Image.open("images/credit.jpg")
+st.sidebar.image(image)
+
+
+st.write ('---debug chargement du modèle ')
 # Chargement du modèle
 #current_path = os.getcwd()
 #credit_path = os.path.join(current_path, 'classifier.pkl')
@@ -23,13 +33,7 @@ from PIL import Image
 model = xgb.XGBClassifier()
 model.load_model('classifier_xgb_opt.json')
 
-   
-########################################################
-# Loading images to the website
-########################################################
-image = Image.open("images/credit.jpg")
-st.sidebar.image(image)
-
+st.write ('---debug chargement des fonctions ')
 def st_shap(plot, height=None):
     shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
     components.html(shap_html, height=height)
@@ -56,11 +60,14 @@ def chargement_data(path):
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id 
 
+st.write ('---debug lecture df1' ,id_input)
 # Pour alimenter le modèle avec les informations du client - les variables sont encodées !!!!!!
 examples_file = 'df1.csv'
 dataframe, liste_id = chargement_data(examples_file) 
 
+st.write ('---debug les pages' ,id_input)
 def main_page():
+    st.write ('---main page' ,id_input)
     st.sidebar.markdown("# Octroi de crédit")
     
     st.title('Bienvenue sur le calcul de risques de remboursement !')
@@ -132,6 +139,7 @@ def main_page():
     
         
 def page2():
+    st.write ('--- page2' ,id_input)
     st.sidebar.markdown("# Interprétation du modèle")
         
     st.title("Interprétation du modèle")
@@ -200,6 +208,7 @@ def page2():
     st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance))
 
 def page3():
+    st.write ('--- page3' ,id_input)
     st.sidebar.markdown("# Transparence")
     
     id_input = st.session_state.client  
@@ -367,7 +376,8 @@ def page3():
     else:
               st.subheader('Le client {} aurait une probabilité de remboursement de {}%'.format
                             (id_input, round(predict_probability[0][0]*100 , 2)))
-    
+
+            
 my_dict = {
     "Octroi de crédit": main_page,
     "Interprétation du modèle": page2,
