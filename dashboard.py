@@ -59,6 +59,34 @@ def chargement_data(path):
         dataframe = pd.read_csv(path)
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id 
+    
+def ABS_SHAP(df_shap,df):
+    #import matplotlib as plt
+    # Make a copy of the input data
+    shap_v = pd.DataFrame(df_shap)
+    feature_list = df.columns
+    shap_v.columns = feature_list
+    df_v = df.copy().reset_index().drop('index',axis=1)
+    
+    # Determine the correlation in order to plot with different colors
+    corr_list = list()
+    for i in feature_list:
+        b = np.corrcoef(shap_v[i],df_v[i])[1][0]
+        corr_list.append(b)
+    corr_df = pd.concat([pd.Series(feature_list),pd.Series(corr_list)],axis=1).fillna(0)
+    # Make a data frame. Column 1 is the feature, and Column 2 is the correlation coefficient
+    corr_df.columns  = ['Variable','Corr']
+    corr_df['Sign'] = np.where(corr_df['Corr']>0,'red','blue')
+    
+    # Plot it
+    shap_abs = np.abs(shap_v)
+    k=pd.DataFrame(shap_abs.mean()).reset_index()
+    k.columns = ['Variable','SHAP_abs']
+    k2 = k.merge(corr_df,left_on = 'Variable',right_on='Variable',how='inner')
+    k2 = k2.sort_values(by='SHAP_abs',ascending = True)
+    colorlist = k2['Sign']
+    ax = k2.plot.barh(x='Variable',y='SHAP_abs',color = colorlist, figsize=(5,6),legend=False)
+    ax.set_xlabel("SHAP Value (Red = Positive Impact)")    
 
 #st.write ('---debug lecture df1')
 # Pour alimenter le modèle avec les informations du client - les variables sont encodées !!!!!!
@@ -77,20 +105,21 @@ def main_page():
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
 
     # Affichage 1ère fois
-    values = ['<select>',liste_id]
+    #values = ['<select>',liste_id]
         
     if 'client' not in st.session_state:
         st.session_state.client = 0
-        default_ix = values.index('100068')
+        #default_ix = values.index('100068')
     else:
         # Retour pagination
         id_input = st.session_state.client
         st.write ('---debug client retour pagination ' ,id_input)
-        default_ix = values.index(id_input)
+        #default_ix = values.index(id_input)
         
-    values = [liste_id]
+    #values = [liste_id]
     #default_ix = values.index(100068)
-    id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser', values, index=default_ix)
+    #id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser', liste_id, index=default_ix)
+    id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser', liste_id)
     st.session_state.client = id_input
     
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
@@ -199,19 +228,30 @@ def page2():
           'EXT_SOURCE_3']]
         
     
-    # SHAP variables locales 
+    # SHAP variables globales
             
-    feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
+    #eat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
     st.header('Variables globales du modèle XGBOOST :')
-    impPlot(feat_importances, 'XGBOOST Classifier')
-
+    #mpPlot(feat_importances, 'XGBOOST Classifier')
+    
     # explain the model's predictions using SHAP
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
+
+    #shap.summary_plot(shap_values, X, plot_type="bar")
+    ABS_SHAP(shap_values,X) 
     
     st.subheader('Variables locales du modèle XGBOOST :')
+    #image1 = Image.open("images/remboursement.jpg")
+    image1 = Image.open("remboursement.jpg")
+    st.image(image1)
+    
     # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
     st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
+    
+    shap.dependence_plot(“EXT_SOURCE_1”, shap_values, X)
+    shap.dependence_plot(“EXT_SOURCE_2”, shap_values, X)
+    shap.dependence_plot(“EXT_SOURCE_3”, shap_values, X)
     
     # visualize the training set predictions
     #st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
