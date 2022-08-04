@@ -213,8 +213,8 @@ def page2():
     
 def page3():
     
-    st.sidebar.markdown("# page3")
-    st.write ('--- page3')
+    st.sidebar.markdown("# Transparence")
+    st.write ('--- Transparence')
     
     id_input = st.session_state.client  
     st.header("Informations du client")
@@ -231,7 +231,7 @@ def page3():
         
     # réalimenter X2 avec les variables saisies
     # Saisie des informations Client dans X2 pour prédiction nouvelle
-    X2 = X_infos_client.copy()
+    X2 = dataframe.copy()
              
     #AGE = st.slider("AGE", 1, 100, 25)
     #X2['AGE'] = AGE
@@ -242,29 +242,22 @@ def page3():
     #DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100, 5)
     #X2['DEF_30_CNT_SOCIAL_CIRCLE'] = DEF_30_CNT_SOCIAL_CIRCLE
         
-            
+      
      
-    #ORGANIZATION_TYPE = st.selectbox("ORGANIZATION_TYPE",options=['Construction', 'Electricity', 'Government/Industry',
-    #                                                                      'Medicine', 
-    #                                                                  'Other/Construction/Agriculture', 'School', 'Services', 
-    #                                                                  'Trade/Business'])    
-        
-    #OCCUPATION_TYPE = st.selectbox("OCCUPATION_TYPE",options=['Accountants/HR staff/Managers','Core/Sales staff','Laborers',
-    #                                                              'Medicine staff','Private service staff' , 'Tech Staff'])
-    
-    NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married']) 
-    if  NAME_FAMILY_STATUS == 'Single':
-        X2['NAME_FAMILY_STATUS_Single'] = 1 
-        
-    if  NAME_FAMILY_STATUS == 'Married':
-        X2['NAME_FAMILY_STATUS_Married'] = 1
+      
+    #NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married']) 
+    #if  NAME_FAMILY_STATUS == 'Single':
+    #    X2['NAME_FAMILY_STATUS_Single'] = 1 
+    #    
+    #if  NAME_FAMILY_STATUS == 'Married':
+    #    X2['NAME_FAMILY_STATUS_Married'] = 1
         
      
-    AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, 220000)
-    X2['AMT_INCOME_TOTAL'] =  AMT_INCOME_TOTAL
+    #AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, 220000)
+    #X2['AMT_INCOME_TOTAL'] =  AMT_INCOME_TOTAL
     
-    INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 0, 1, 0.2)
-    X2['INCOME_CREDIT_PERC'] = INCOME_CREDIT_PERC
+    #INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 0, 1, 0.2)
+    #X2['INCOME_CREDIT_PERC'] = INCOME_CREDIT_PERC
     
        
     EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 0, 1,0.2)
@@ -277,66 +270,72 @@ def page3():
     X2['EXT_SOURCE_3'] = EXT_SOURCE_3
     
        
-    NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])
-    NAME_EDUCATION_TYPE_Low_education , NAME_EDUCATION_TYPE_Medium_education , NAME_EDUCATION_TYPE_High_education = 0,0,0
-    if NAME_EDUCATION_TYPE == 'Low education':
-         #NAME_EDUCATION_TYPE_Low_education = 1
-         X2['NAME_EDUCATION_TYPE_Low education'] = 1   
-    elif NAME_EDUCATION_TYPE == 'Medium education':
-         #NAME_EDUCATION_TYPE_Medium_education = 1
-         X2['NAME_EDUCATION_TYPE_Medium education'] = 1       
-    else:
-         #NAME_EDUCATION_TYPE_High_education = 1
-         X2['NAME_EDUCATION_TYPE_High education']   = 1
-     
+    #NAME_EDUCATION_TYPE = st.selectbox("NAME_EDUCATION_TYPE",options=['Low education','Medium education','High education'])
+    #NAME_EDUCATION_TYPE_Low_education , NAME_EDUCATION_TYPE_Medium_education , NAME_EDUCATION_TYPE_High_education = 0,0,0
+    #if NAME_EDUCATION_TYPE == 'Low education':
+    #     #NAME_EDUCATION_TYPE_Low_education = 1
+    #     X2['NAME_EDUCATION_TYPE_Low education'] = 1   
+    #elif NAME_EDUCATION_TYPE == 'Medium education':
+    #     #NAME_EDUCATION_TYPE_Medium_education = 1
+    #     X2['NAME_EDUCATION_TYPE_Medium education'] = 1       
+    #else:
+    #     #NAME_EDUCATION_TYPE_High_education = 1
+    #     X2['NAME_EDUCATION_TYPE_High education']   = 1
+    
+    ORGANIZATION_TYPE = st.selectbox("ORGANIZATION_TYPE",options=['Medicine','School','Services'])
     #ORGANIZATION_TYPE_Construction, ORGANIZATION_TYPE_Electricity, ORGANIZATION_TYPE_Government_Industry = 0,0,0
-    #ORGANIZATION_TYPE_Medicine, ORGANIZATION_TYPE_Other_Construction_Agriculture, ORGANIZATION_TYPE_School = 0,0,0
-    #ORGANIZATION_TYPE_Services, ORGANIZATION_TYPE_Trade_Business = 0,0 
-    #if ORGANIZATION_TYPE == 'Construction':
-    #          ORGANIZATION_TYPE_Construction = 1
-    #          X2['ORGANIZATION_TYPE_Construction'] = 1
-    #elif ORGANIZATION_TYPE == 'Electricity':
-    #           ORGANIZATION_TYPE_Electricity = 1
-    #           X2['ORGANIZATION_TYPE_Electricity'] = 1
-    #elif ORGANIZATION_TYPE ==  'Government/Industry':   
-    #           ORGANIZATION_TYPE_Government_Industry = 1 
-    #           X2['ORGANIZATION_TYPE_Government/Industry'] = 1
-    #elif  ORGANIZATION_TYPE == 'Medicine':    
-    #           ORGANIZATION_TYPE_Medicine = 1
-    #           X2['ORGANIZATION_TYPE_Medicine'] = 1
-    #elif  ORGANIZATION_TYPE == 'Other/Construction/Agriculture':
-    #           ORGANIZATION_TYPE_Other_Construction_Agriculture = 1
-    #           X2['ORGANIZATION_TYPE_Other/Construction/Agriculture'] = 1 
-    #elif  ORGANIZATION_TYPE ==  'School': 
-    #           ORGANIZATION_TYPE_School = 1
-    #           X2['ORGANIZATION_TYPE_School'] = 1
-    #elif ORGANIZATION_TYPE == 'Services':
-    #           ORGANIZATION_TYPE_Services = 1
-    #           X2['ORGANIZATION_TYPE_Services'] = 1
-    #elif ORGANIZATION_TYPE == 'Trade/Business':
-    #           ORGANIZATION_TYPE_Trade_Business = 1
-    #           X2['ORGANIZATION_TYPE_Trade/Business'] = 1
+    ORGANIZATION_TYPE_Medicine,  ORGANIZATION_TYPE_School, ORGANIZATION_TYPE_Services, = 0,0,0
+    #ORGANIZATION_TYPE_Other_Construction_Agriculture, ORGANIZATION_TYPE_Trade_Business = 0,0 
+    if ORGANIZATION_TYPE == 'Construction':
+              ORGANIZATION_TYPE_Construction = 1
+              X2['ORGANIZATION_TYPE_Construction'] = 1
+    elif ORGANIZATION_TYPE == 'Electricity':
+               ORGANIZATION_TYPE_Electricity = 1
+               X2['ORGANIZATION_TYPE_Electricity'] = 1
+    elif ORGANIZATION_TYPE ==  'Government/Industry':   
+               ORGANIZATION_TYPE_Government_Industry = 1 
+               X2['ORGANIZATION_TYPE_Government/Industry'] = 1
+    elif  ORGANIZATION_TYPE == 'Medicine':    
+               ORGANIZATION_TYPE_Medicine = 1
+               X2['ORGANIZATION_TYPE_Medicine'] = 1
+    elif  ORGANIZATION_TYPE == 'Other/Construction/Agriculture':
+               ORGANIZATION_TYPE_Other_Construction_Agriculture = 1
+               X2['ORGANIZATION_TYPE_Other/Construction/Agriculture'] = 1 
+    elif  ORGANIZATION_TYPE ==  'School': 
+               ORGANIZATION_TYPE_School = 1
+               X2['ORGANIZATION_TYPE_School'] = 1
+    elif ORGANIZATION_TYPE == 'Services':
+               ORGANIZATION_TYPE_Services = 1
+               X2['ORGANIZATION_TYPE_Services'] = 1
+    elif ORGANIZATION_TYPE == 'Trade/Business':
+               ORGANIZATION_TYPE_Trade_Business = 1
+               X2['ORGANIZATION_TYPE_Trade/Business'] = 1    
+    
+      
+     
+    OCCUPATION_TYPE = st.selectbox("OCCUPATION_TYPE",options=['Accountants_HR_staff_Managers','Private_service_staff','Medicine staff'])
                
-    #OCCUPATION_TYPE_Accountants_HR_staff_Managers, OCCUPATION_TYPE_Core_Sales_staff, OCCUPATION_TYPE_Laborers = 0,0,0  
+    OCCUPATION_TYPE_Accountants_HR_staff_Managers, OCCUPATION_TYPE_Private_service_staff, OCCUPATION_TYPE_Medicine_staff = 0,0,0
+    #OCCUPATION_TYPE_Core_Sales_staff, OCCUPATION_TYPE_Laborers = 0,0,0  
     #OCCUPATION_TYPE_Medicine_staff, OCCUPATION_TYPE_Private_service_staff, OCCUPATION_TYPE_Tech_Staff = 0,0,0
-    #if OCCUPATION_TYPE == 'Accountants/HR staff/Managers':
-    #           OCCUPATION_TYPE_Accountants_HR_staff_Managers = 1
-    #           X2['OCCUPATION_TYPE_Accountants/HR staff/Managers'] = 1
-    #elif OCCUPATION_TYPE == 'Core/Sales staff':
-    #           OCCUPATION_TYPE_Core_Sales_staff = 1
-    #           X2['OCCUPATION_TYPE_Core/Sales staff'] = 1
-    #elif OCCUPATION_TYPE == 'Laborers':
-    #           OCCUPATION_TYPE_Laborers = 1
-    #           X2['OCCUPATION_TYPE_Laborers'] = 1
-    #elif OCCUPATION_TYPE == 'Medicine staff':
-    #           OCCUPATION_TYPE_Medicine_staff = 1
-    #           X2['OCCUPATION_TYPE_Medicine staff'] = 1
-    #elif OCCUPATION_TYPE == 'Private service staff':
-    #           OCCUPATION_TYPE_Private_service_staff = 1 
-    #           X2['OCCUPATION_TYPE_Private service staff'] = 1
-    #elif OCCUPATION_TYPE ==  'Tech Staff':
-    #           OCCUPATION_TYPE_Tech_Staff = 1
-    #           X2['OCCUPATION_TYPE_Tech Staff'] = 1
+    if OCCUPATION_TYPE == 'Accountants/HR staff/Managers':
+               OCCUPATION_TYPE_Accountants_HR_staff_Managers = 1
+               X2['OCCUPATION_TYPE_Accountants/HR staff/Managers'] = 1
+    elif OCCUPATION_TYPE == 'Core/Sales staff':
+               OCCUPATION_TYPE_Core_Sales_staff = 1
+               X2['OCCUPATION_TYPE_Core/Sales staff'] = 1
+    elif OCCUPATION_TYPE == 'Laborers':
+               OCCUPATION_TYPE_Laborers = 1
+               X2['OCCUPATION_TYPE_Laborers'] = 1
+    elif OCCUPATION_TYPE == 'Medicine staff':
+               OCCUPATION_TYPE_Medicine_staff = 1
+               X2['OCCUPATION_TYPE_Medicine staff'] = 1
+    elif OCCUPATION_TYPE == 'Private service staff':
+               OCCUPATION_TYPE_Private_service_staff = 1 
+               X2['OCCUPATION_TYPE_Private service staff'] = 1
+    elif OCCUPATION_TYPE ==  'Tech Staff':
+               OCCUPATION_TYPE_Tech_Staff = 1
+               X2['OCCUPATION_TYPE_Tech Staff'] = 1
      
     X3 = X2[['CODE_GENDER', 
         'AGE',
@@ -369,18 +368,15 @@ def page3():
          'EXT_SOURCE_3']]
     
     
-    transparence = prediction(X3)
+    transparence = prediction(X2)
     st.write('---debug prediction ', transparence)
     
-    predict_probability = model.predict_proba(X3)
+    predict_probability = model.predict_proba(X2)
     st.write('---debug predict_probability', predict_probability)
-    
-    if transparence == 1:
-              st.subheader('Le client {} aurait un risque de faillite de {}%'.format
+       
+    st.subheader('Le client {} a une probabilité de remboursement de {}%'.format
                             (id_input ,round(predict_probability[0][1]*100 , 2)))
-    else:
-              st.subheader('Le client {} aurait une probabilité de remboursement de {}%'.format
-                            (id_input, round(predict_probability[0][0]*100 , 2)))
+    
 
             
 my_dict = {
