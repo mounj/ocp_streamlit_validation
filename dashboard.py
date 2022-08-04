@@ -60,12 +60,12 @@ def chargement_data(path):
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id 
 
-st.write ('---debug lecture df1' ,id_input)
+st.write ('---debug lecture df1')
 # Pour alimenter le modèle avec les informations du client - les variables sont encodées !!!!!!
 examples_file = 'df1.csv'
 dataframe, liste_id = chargement_data(examples_file) 
 
-st.write ('---debug les pages' ,id_input)
+st.write ('---debug les pages')
 def main_page():
     st.write ('---main page' ,id_input)
     st.sidebar.markdown("# Octroi de crédit")
