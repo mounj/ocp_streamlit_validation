@@ -231,7 +231,9 @@ def page3():
         
     # réalimenter X2 avec les variables saisies
     # Saisie des informations Client dans X2 pour prédiction nouvelle
-    X2 = dataframe.copy()
+    
+    X2 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
+         
              
     #AGE = st.slider("AGE", 1, 100, 25)
     #X2['AGE'] = AGE
@@ -260,13 +262,13 @@ def page3():
     #X2['INCOME_CREDIT_PERC'] = INCOME_CREDIT_PERC
     
        
-    EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 0, 1,0.2)
+    EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 0, 1,0.1)
     X2['EXT_SOURCE_1'] = EXT_SOURCE_1
     
-    EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 0, 1, 0.2)
+    EXT_SOURCE_2 = st.slider("EXT_SOURCE_2", 0, 1, 0.1)
     X2['EXT_SOURCE_2'] = EXT_SOURCE_2
     
-    EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 0, 1, 0.2)  
+    EXT_SOURCE_3 = st.slider("EXT_SOURCE_3", 0, 1, 0.1)  
     X2['EXT_SOURCE_3'] = EXT_SOURCE_3
     
        
@@ -368,10 +370,10 @@ def page3():
          'EXT_SOURCE_3']]
     
     
-    transparence = prediction(X2)
+    transparence = prediction(X3)
     st.write('---debug prediction ', transparence)
     
-    predict_probability = model.predict_proba(X2)
+    predict_probability = model.predict_proba(X3)
     st.write('---debug predict_probability', predict_probability)
        
     st.subheader('Le client {} a une probabilité de remboursement de {}%'.format
