@@ -208,16 +208,9 @@ def page2():
     st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
     
     # visualize the training set predictions
-    st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
+    #st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
         
-    # Calculate Shap values
-    #choosen_instance = X 
-    #shap_values = explainer.shap_values(choosen_instance)
-       
     
-    # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
-    #st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance))
-
 def page3():
     
     st.sidebar.markdown("# page3")
