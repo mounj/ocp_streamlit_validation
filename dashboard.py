@@ -106,7 +106,8 @@ def main_page():
          'OCCUPATION_TYPE_Medicine staff',  
          'OCCUPATION_TYPE_Private service staff' , 
          'OCCUPATION_TYPE_Tech Staff',
-         'NAME_FAMILY_STATUS',
+         'NAME_FAMILY_STATUS_Married',
+         'NAME_FAMILY_STATUS_Single',  
           'AMT_INCOME_TOTAL',
           'INCOME_CREDIT_PERC',
           'DAYS_EMPLOYED_PERC',
@@ -171,7 +172,8 @@ def page2():
          'OCCUPATION_TYPE_Medicine staff',  
          'OCCUPATION_TYPE_Private service staff' , 
          'OCCUPATION_TYPE_Tech Staff',
-         'NAME_FAMILY_STATUS',
+         'NAME_FAMILY_STATUS_Married',
+         'NAME_FAMILY_STATUS_Single',  
           'AMT_INCOME_TOTAL',
           'INCOME_CREDIT_PERC',
           'DAYS_EMPLOYED_PERC',
@@ -237,8 +239,8 @@ def page3():
     #                                                              'Medicine staff','Private service staff' , 'Tech Staff'])
     
     NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married']) 
-    NAME_FAMILY_STATUS = 0 if  NAME_FAMILY_STATUS == 'Single' else 1
-    X2['NAME_FAMILY_STATUS'] = NAME_FAMILY_STATUS    
+    X2['NAME_FAMILY_STATUS_Single'] = 1 if  NAME_FAMILY_STATUS == 'Single' else X2['NAME_FAMILY_STATUS_Married'] = 1
+    #X2['NAME_FAMILY_STATUS'] = NAME_FAMILY_STATUS    
              
     
     AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, 220000)
@@ -340,7 +342,8 @@ def page3():
          'OCCUPATION_TYPE_Medicine staff',  
          'OCCUPATION_TYPE_Private service staff' , 
          'OCCUPATION_TYPE_Tech Staff',
-         'NAME_FAMILY_STATUS',
+         'NAME_FAMILY_STATUS_Married',
+         'NAME_FAMILY_STATUS_Single',  
          'AMT_INCOME_TOTAL',
          'INCOME_CREDIT_PERC',
          'DAYS_EMPLOYED_PERC',
