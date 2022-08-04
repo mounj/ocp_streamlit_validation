@@ -66,9 +66,11 @@ examples_file = 'df1.csv'
 dataframe, liste_id = chargement_data(examples_file) 
 
 st.write ('---debug les pages')
+
 def main_page():
-    st.write ('---main page' ,id_input)
-    st.sidebar.markdown("# Octroi de crédit")
+    
+    st.sidebar.markdown("# main_page")
+    st.write ('---main page')
     
     st.title('Bienvenue sur le calcul de risques de remboursement !')
     
@@ -139,9 +141,10 @@ def main_page():
     
         
 def page2():
-    st.write ('--- page2' ,id_input)
-    st.sidebar.markdown("# Interprétation du modèle")
-        
+    
+    st.sidebar.markdown("# page2")
+    st.write ('--- page2')
+    
     st.title("Interprétation du modèle")
     
     id_input = st.session_state.client   
@@ -208,8 +211,9 @@ def page2():
     st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance))
 
 def page3():
-    st.write ('--- page3' ,id_input)
-    st.sidebar.markdown("# Transparence")
+    
+    st.sidebar.markdown("# page3")
+    st.write ('--- page3')
     
     id_input = st.session_state.client  
     st.header("Informations du client")
@@ -379,9 +383,9 @@ def page3():
 
             
 my_dict = {
-    "Octroi de crédit": main_page,
-    "Interprétation du modèle": page2,
-    "Transparence": page3,
+    "main_page": main_page,
+    "page2": page2,
+    "page3": page3,
 }
 
 keys = list(my_dict.keys())
