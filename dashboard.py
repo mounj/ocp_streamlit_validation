@@ -128,14 +128,14 @@ def main_page():
         
     if result == 1:
         if int(X1['TARGET']) == 1: 
-             pred = 'Rejected (True Negative)'
+             pred = 'Rejected (True Positive)'
         else:
-             pred = 'Approved (False Negative)'
+             pred = 'Approved (False Positive)'
     else:
         if int(X1['TARGET']) == 1:
-             pred = 'Rejected (False Positive)'
+             pred = 'Rejected (False Negative)'
         else:
-             pred = 'Approved (True Positive)'              
+             pred = 'Approved (True Negative)'              
                    
     st.success('Your loan is {}'.format(pred))
     
@@ -148,7 +148,7 @@ def page2():
     st.title("Interprétation du modèle")
     
     id_input = st.session_state.client   
-    st.write ('Pour le client  ', id_input ,' poids des variables dans le modèle Random Forest !' )
+    st.write ('Pour le client  ', id_input ,' poids des variables dans le modèle XGBOOST' )
      
     # informations du client
     st.header("Informations du client")
@@ -196,19 +196,27 @@ def page2():
     # SHAP variables locales 
             
     feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
-    st.header('Variables globales du modèle Random Forest :')
-    impPlot(feat_importances, 'Random Forest Classifier')
+    st.header('Variables globales du modèle XGBOOST :')
+    impPlot(feat_importances, 'XGBOOST Classifier')
 
     # explain the model's predictions using SHAP
     explainer = shap.TreeExplainer(model)
+    shap_values = explainer.shap_values(X)
+    
+    st.subheader('Variables locales du modèle XGBOOST :')
+    # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
+    st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
+    
+    # visualize the training set predictions
+    st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
         
     # Calculate Shap values
-    choosen_instance = X 
-    shap_values = explainer.shap_values(choosen_instance)
+    #choosen_instance = X 
+    #shap_values = explainer.shap_values(choosen_instance)
        
-    st.subheader('Variables locales du modèle Random Forest :')
+    
     # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
-    st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance))
+    #st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance))
 
 def page3():
     
