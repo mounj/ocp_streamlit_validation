@@ -77,18 +77,22 @@ def main_page():
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
 
     # Affichage 1ère fois
+    values = ['<select>',liste_id]
+        
     if 'client' not in st.session_state:
-        st.session_state.key = 0
+        st.session_state.client = 0
+        default_ix = values.index(100002)
     else:
         # Retour pagination
         id_input = st.session_state.client
         st.write ('---debug client retour pagination ' ,id_input)
-        st.session_state.client = id_input
-    
-    #id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)  
-    st.session_state.client = id_input
-    
-    id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)
+        default_ix = values.index(id_input)
+        
+    values = ['<select>',liste_id]
+    #default_ix = values.index(100068)
+    id_input = st.sidebar.selectbox('Choisissez le client que vous souhaitez visualiser', values, index=default_ix)
+        
+    #id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser',liste_id)
     st.session_state.client = id_input
     
     client_infos = dataframe[dataframe['SK_ID_CURR'] == id_input].drop(
