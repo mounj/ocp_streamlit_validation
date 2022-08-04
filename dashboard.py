@@ -371,11 +371,11 @@ def page3():
     
     
     transparence = prediction(X3)
-    st.write('---debug prediction ', transparence)
+    #st.write('---debug prediction ', transparence)
     
     if transparence == 1:
              pred = 'Rejected'
-        else:
+    else:
              pred = 'Approved'
             
                
