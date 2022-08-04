@@ -15,8 +15,8 @@ import streamlit.components.v1 as components
 import xgboost as xgb
 from PIL import Image
 
-
-st.write ('---debug chargement image ')
+st.sidebar.title("Prêt à dépenser")
+#st.write ('---debug chargement image ')
 ########################################################
 # Loading images to the website
 ########################################################
@@ -24,7 +24,7 @@ image = Image.open("images/credit.jpg")
 st.sidebar.image(image)
 
 
-st.write ('---debug chargement du modèle ')
+#st.write ('---debug chargement du modèle ')
 # Chargement du modèle
 #current_path = os.getcwd()
 #credit_path = os.path.join(current_path, 'classifier.pkl')
@@ -33,7 +33,7 @@ st.write ('---debug chargement du modèle ')
 model = xgb.XGBClassifier()
 model.load_model('classifier_xgb_opt.json')
 
-st.write ('---debug chargement des fonctions ')
+#st.write ('---debug chargement des fonctions ')
 def st_shap(plot, height=None):
     shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
     components.html(shap_html, height=height)
@@ -60,17 +60,17 @@ def chargement_data(path):
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id 
 
-st.write ('---debug lecture df1')
+#st.write ('---debug lecture df1')
 # Pour alimenter le modèle avec les informations du client - les variables sont encodées !!!!!!
 examples_file = 'df1.csv'
 dataframe, liste_id = chargement_data(examples_file) 
 
-st.write ('---debug les pages')
+#st.write ('---debug les pages')
 
 def main_page():
     
     st.sidebar.markdown("# Calcul du risque")
-    st.write ('---Calcul du risque')
+    #st.write ('---Calcul du risque')
     
     st.title('Bienvenue sur le calcul du risque de remboursement de prêt !')
     
@@ -214,7 +214,7 @@ def page2():
 def page3():
     
     st.sidebar.markdown("# Transparence")
-    st.write ('--- Transparence')
+    #st.write ('--- Transparence')
     
     id_input = st.session_state.client  
     st.header("Informations du client")
