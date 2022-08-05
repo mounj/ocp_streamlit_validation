@@ -231,7 +231,7 @@ def page2():
     #shap.force_plot(explainer.expected_value, shap_values, X) 
     shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]) 
     
-     st.write ('--- fin page 2') 
+    st.write ('--- fin page 2') 
     
 def page3():
     
