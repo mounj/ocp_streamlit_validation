@@ -69,12 +69,12 @@ def chargement_data(path):
         return dataframe, liste_id 
     
 
-st.write ('---debug lecture df1')
+#st.write ('---debug lecture df1')
 # Pour alimenter le modèle avec les informations du client - les variables sont encodées !!!!!!
 examples_file = 'df1.csv'
 dataframe, liste_id = chargement_data(examples_file) 
 
-st.write ('---debug les pages')
+#st.write ('---debug les pages')
 
 def main_page():
     
@@ -92,7 +92,7 @@ def main_page():
     else:
         # Retour pagination
         id_input = st.session_state.client
-        st.write ('---debug client retour pagination main ' ,id_input)
+        #st.write ('---debug client retour pagination main ' ,id_input)
         
         
     id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser', liste_id)
@@ -158,7 +158,7 @@ def page2():
     
     st.title("Interprétation du modèle")
     
-    st.write ('--- session_state.client page 2')    
+    #st.write ('--- session_state.client page 2')    
     id_input = st.session_state.client 
     
     st.write ('Pour le client  ', id_input ,' poids des variables dans le modèle XGBOOST')
@@ -233,12 +233,12 @@ def page2():
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
     
-    st_shap(shap.summary_plot(shap_values, X, plot_type="bar"))
-    
+    #st_shap(shap.summary_plot(shap_values, X, plot_type="bar"))
+    st_shap(shap.summary_plot(shap_values, X))
     # test
-    st_shap(shap.dependence_plot('EXT_SOURCE_3', shap_values, X))
+    #st_shap(shap.dependence_plot('EXT_SOURCE_3', shap_values, X))
 
-    # ok ne pas toucher !!!
+    # 
     st_shap(shap.force_plot(explainer.expected_value, shap_values, X), height=200, width=1000)
     
         
