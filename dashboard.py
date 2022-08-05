@@ -181,6 +181,8 @@ def page2():
     fig = px.box(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_2", color="TARGET", notched=True)
     st.plotly_chart(fig)
     
+    
+    
     # SHAP
     X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
     X = X1[['CODE_GENDER', 
@@ -226,11 +228,17 @@ def page2():
     shap_values = explainer(X)
 
     #st_shap(shap.plots.waterfall(shap_values[0]), height=300)
-    st_shap(shap.plots.beeswarm(shap_values), height=300)
+    #st_shap(shap.plots.beeswarm(shap_values), height=300)
 
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
+    
+    st_shap(shap.summary_plot(shap_values, X_train, plot_type="bar"))
+    
+    # test
+    st_shap(shap.dependence_plot('EXT_SOURCE_3', shap_values, X))
 
+    # ok ne pas toucher !!!
     st_shap(shap.force_plot(explainer.expected_value, shap_values, X), height=200, width=1000)
     
         
