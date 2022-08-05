@@ -10,6 +10,7 @@ import shap
 from sklearn.preprocessing import StandardScaler
 import io
 import plotly.express as px
+import plotly.figure_factory as ff
 import plotly.graph_objs as go
 import streamlit.components.v1 as components
 import xgboost as xgb
@@ -189,11 +190,26 @@ def page2():
     st.header("Informations du client")
     examples_file = 'application_API.csv'
     application, liste_id = chargement_data(examples_file)
-    #application = application[~((application['EXT_SOURCE_1'].isnull()))]
     application.drop(['Unnamed: 0'], axis=1, inplace= True)
     X_infos_client = application[application['SK_ID_CURR'] == id_input]  
     st.write(X_infos_client)    
-        
+    
+    # Histogrammes
+    st.header('Histogrammes :') 
+    # Add histogram data
+    x_1 = application['EXT_SOURCE_1'].values
+    x_2 = application['EXT_SOURCE_2'].values
+    x_3 = application['EXT_SOURCE_3'].values
+    
+    # Group data together
+    hist_data = [x_1, x_2, x_3]
+    group_labels = ['Group 1', 'Group 2', 'Group 3']
+    
+    # Create distplot with custom bin_size
+    fig = ff.create_distplot(hist_data, group_labels, bin_size=[.1, .25, .5])
+
+    # Plot!
+    st.plotly_chart(fig, use_container_width=True)    
         
     # SHAP
     X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
@@ -231,26 +247,17 @@ def page2():
     # Variables globales
     st.header('Variables globales du modèle XGBOOST :')        
     feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
-    impPlot(feat_importances, 'XGBOOST Classifier')
+    impPlot(feat_importances, 'XGBOOST Classifier')  
     
-    #st.write ('---shap 1')
+    # Variables locales
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
    
     st.header('Variables locales du modèle XGBOOST :')
-    st.write ('---shap.force_plot')
     st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
     #st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
     
-    st.write ('--- shap.summary_plot :')
     
-    
-    shap.summary_plot(shap_values, X)
-    shap.plots.scatter(shap_values['EXT_SOURCE_3'], color=shap_values)
-    
-    st.write ('---shap.dependence_plot :')
-    st.header('Dépendance de ext_source_3 en fonction de la target :')
-    shap.dependence_plot("EXT_SOURCE_3", shap_values, X)    
     
 def page3():
     
