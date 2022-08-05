@@ -3,7 +3,9 @@ plotly==5.9.0
 matplotlib 
 #seaborn
 opencv-python-headless==4.5.3.56
-streamlit==0.84.0
+#streamlit==0.84.0
+streamlit
+streamlit_shap
 scikit-learn
 StandardScaler
 shap
