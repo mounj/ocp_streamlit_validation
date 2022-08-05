@@ -246,7 +246,7 @@ def page2():
     
     
     shap.summary_plot(shap_values, X)
-    shap.plots.scatter(shap_values[:,'EXT_SOURCE_3'], color=shap_values)
+    shap.plots.scatter(shap_values['EXT_SOURCE_3'], color=shap_values)
     
     st.write ('---shap.dependence_plot :')
     st.header('Dépendance de ext_source_3 en fonction de la target :')
