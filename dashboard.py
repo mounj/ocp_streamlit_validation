@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_shap import st_shap
-import shap
+#import shap
 import pandas as pd
 # pour réparer le problème avec XGBOOST !!!!!!
 from pandas import MultiIndex, Int16Dtype
@@ -69,12 +69,6 @@ def chargement_data(path):
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id 
     
-def st_plot_text_shap(shap_val, height=None):
-    InteractiveShell().instance()
-    with capture.capture_output() as cap: 
-        shap.plots.text(shap_val)
-    components.html(cap.outputs[1].data['text/html'], height=height, scrolling=True)    
- 
 
 st.write ('---debug lecture df1')
 # Pour alimenter le modèle avec les informations du client - les variables sont encodées !!!!!!
@@ -235,15 +229,13 @@ def page2():
     # Variables locales
     st.header('Variables locales du modèle XGBOOST :')
     # compute SHAP values
-    explainer = shap.Explainer(model, X)
-    shap_values = explainer(X)
-
-    st_shap(shap.plots.waterfall(shap_values[0]), height=300)
-    st_shap(shap.plots.beeswarm(shap_values), height=300)
-
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
 
+    #st_shap(shap.plots.waterfall(shap_values[0]), height=300)
+    #st_shap(shap.plots.beeswarm(shap_values), height=300)
+
+    
     st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X_display.iloc[0,:]), height=200, width=1000)
     st_shap(shap.force_plot(explainer.expected_value, shap_values[:1000,:], X_display.iloc[:1000,:]), height=400, width=1000)
     
