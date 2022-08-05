@@ -179,7 +179,8 @@ def page2():
     
     fig = px.scatter(application, x="EXT_SOURCE_3", y="TARGET", color="OCCUPATION_TYPE",
                  size='TARGET', hover_data=['EXT_SOURCE_3'])
-    fig.show()
+    
+    st.plotly_chart(fig)
     
     
     
