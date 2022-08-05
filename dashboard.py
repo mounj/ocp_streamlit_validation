@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
+import seaborn as sns
 import requests
 import json
 import pickle
@@ -196,18 +196,32 @@ def page2():
     st.write(X_infos_client)    
     
     # scatter plot
-    #Create numpy array for the visualisation
     st.header("Occupation type et la target")
+    
     df_occupation = application.groupby('OCCUPATION_TYPE').mean()
     df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
                     "OCCUPATION_TYPE": df_occupation.index})
-    x = df_test.values
+    x = df_test.index
     y = df_test['TARGET'].values  
     
     fig = plt.figure(figsize=(10, 4))
     plt.scatter(x, y)
     
     st.balloons()
+    st.pyplot(fig)
+    
+    st.header("bis Occupation type et la target")
+    
+    df_occupation = application.groupby('OCCUPATION_TYPE').mean()
+    df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
+                    "OCCUPATION_TYPE": df_occupation.index})
+    
+    
+    plt.figure(figsize=(14,8))
+    s1 = sns.barplot(x = 'OCCUPATION_TYPE', y = 'TARGET', data = df_test, color = 'green')
+    plt.setp(s1.get_xticklabels(), rotation=20, ha='right')
+    #plt.grid(True)
+    #st.balloons()
     st.pyplot(fig)
     
     # SHAP
