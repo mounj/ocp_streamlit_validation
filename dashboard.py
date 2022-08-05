@@ -177,12 +177,15 @@ def page2():
     df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
                     "OCCUPATION_TYPE": df_occupation.index})
     
-    fig = px.scatter(df_test, x="OCCUPATION_TYPE", y="TARGET", 
-                  hover_name=['OCCUPATION_TYPE'])
-    
+     
+    fig = go.Figure(application=go.Scatter(x=application['OCCUPATION_TYPE'],
+                                y=application['TARGET'],
+                                mode='markers',
+                                marker_color=application['OCCUPATION_TYPE'],
+                                text=application['OCCUPATION_TYPE'])) # hover text goes here
+
+    fig.update_layout(title='nnnnnnnnnn')
     st.plotly_chart(fig)
-    
-    
     
     # SHAP
     X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
