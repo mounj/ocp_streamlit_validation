@@ -170,16 +170,19 @@ def page2():
     st.write(X_infos_client)    
     
     # scatter plot
-    st.header("EXT_SOURCE_3 et la target")
     
-    df_occupation = application.groupby('OCCUPATION_TYPE').mean()
     
-    df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
-                    "OCCUPATION_TYPE": df_occupation.index})
-        
-    #fig = px.bar(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_3", color="TARGET",
-    #         pattern_shape="TARGET", pattern_shape_sequence=["x", "+"])
+    #df_occupation = application.groupby('OCCUPATION_TYPE').mean()
+    
+    #df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
+    #                "OCCUPATION_TYPE": df_occupation.index})
+    
+    st.header("OCCUPATION_TYPE / EXT_SOURCE_3 / target")    
     fig = px.box(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_3", color="TARGET", notched=True)
+    st.plotly_chart(fig)
+    
+    st.header("OCCUPATION_TYPE / EXT_SOURCE_2 / target")
+    fig = px.box(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_2", color="TARGET", notched=True)
     st.plotly_chart(fig)
     
     # SHAP
@@ -225,6 +228,7 @@ def page2():
     shap_values = explainer.shap_values(X)
    
     st.header('Variables locales du modèle XGBOOST :')
+    shap.initjs()
     st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
     #st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
     
