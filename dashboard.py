@@ -222,18 +222,18 @@ def page2():
     # Variables locales
     st.header('Variables locales du modèle XGBOOST :')
     # compute SHAP values
+    explainer = shap.Explainer(model, X)
+    shap_values = explainer(X)
+
+    st_shap(shap.plots.waterfall(shap_values[0]), height=300)
+    st_shap(shap.plots.beeswarm(shap_values), height=300)
+
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
 
-    #st_shap(shap.plots.waterfall(shap_values[0]), height=300)
-    #st_shap(shap.plots.beeswarm(shap_values), height=300)
-
-    
     st_shap(shap.force_plot(explainer.expected_value, shap_values, X), height=200, width=1000)
-    #st_shap(shap.force_plot(explainer.expected_value, shap_values[:1000,:], X_display.iloc[:1000,:]), height=400, width=1000)
     
-    st.write ('--- fin page 2') 
-    
+        
 def page3():
     
     st.sidebar.markdown("# Transparence")
