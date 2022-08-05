@@ -197,11 +197,14 @@ def page2():
     
     # scatter plot
     #Create numpy array for the visualisation
-    x_1 = application['EXT_SOURCE_3'].values
-    y_1 = application['TARGET']  
+    df_occupation = application.groupby('OCCUPATION_TYPE').mean()
+    df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
+                    "OCCUPATION_TYPE": df_occupation.index})
+    x = df_test.index
+    y = df_test['TARGET'].values  
     
     fig = plt.figure(figsize=(10, 4))
-    plt.scatter(x_1, y_1)
+    plt.scatter(x, y)
     
     st.balloons()
     st.pyplot(fig)
