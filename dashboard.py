@@ -16,6 +16,8 @@ import plotly.graph_objs as go
 import streamlit.components.v1 as components
 import xgboost as xgb
 from PIL import Image
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 
 st.sidebar.title("Prêt à dépenser")
 #st.write ('---debug chargement image ')
