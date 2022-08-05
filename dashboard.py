@@ -36,9 +36,9 @@ model = xgb.XGBClassifier()
 model.load_model('classifier_xgb_opt.json')
 
 #st.write ('---debug chargement des fonctions')
-def st_shap(plot, height=None):
-    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
-    components.html(shap_html, height=height)
+#def st_shap(plot, height=None):
+#    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
+#    components.html(shap_html, height=height)
 
 def prediction(X):
     prediction = model.predict(X)
@@ -229,7 +229,7 @@ def page2():
    
     st.header('Variables locales du modèle XGBOOST :')
     shap.initjs()
-    st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
+    shap.force_plot(explainer.expected_value, shap_values, X) 
     #st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
     
     
