@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+# pour réparer le problème avec XGBOOST !!!!!!
+from pandas import MultiIndex, Int16Dtype
 import numpy as np
 import matplotlib 
 #import seaborn as sns
