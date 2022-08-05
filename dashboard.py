@@ -33,7 +33,7 @@ st.sidebar.image(image)
 model = xgb.XGBClassifier()
 model.load_model('classifier_xgb_opt.json')
 
-#st.write ('---debug chargement des fonctions ')
+#st.write ('---debug chargement des fonctions')
 def st_shap(plot, height=None):
     shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
     components.html(shap_html, height=height)
@@ -238,14 +238,19 @@ def page2():
     shap_values = explainer.shap_values(X)
    
     st.header('Variables locales du modèle XGBOOST :')
-    st.write ('---shap 2')
+    st.write ('---shap.force_plot')
     st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
     #st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
     
-    st.write ('---shap 3')
+    st.write ('--- shap.summary_plot :')
+    
+    your_feature_list = ['EXT_SOURCE_1','EXT_SOURCE_2','EXT_SOURCE_3']
+    your_feature_indices = [X.iloc[:,:].index.tolist().index(x) for x in your_feature_list]
+    shap.summary_plot(shap_values[1][:,your_feature_indices], X.iloc[:, your_feature_indices])
     shap.summary_plot(shap_values, X)
     
-    st.write ('---shap 4')
+    
+    st.write ('---shap.dependence_plot :')
     st.header('Dépendance de ext_source_3 en fonction de la target :')
     shap.dependence_plot("EXT_SOURCE_3", shap_values, X)    
     
