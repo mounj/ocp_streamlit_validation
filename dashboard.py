@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+#import matplotlib.pyplot as plt
+#import seaborn as sns
 import requests
 import json
 import pickle
@@ -62,33 +62,7 @@ def chargement_data(path):
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id 
     
-def ABS_SHAP(df_shap,df):
-    #import matplotlib as plt
-    # Make a copy of the input data
-    shap_v = pd.DataFrame(df_shap)
-    feature_list = df.columns
-    shap_v.columns = feature_list
-    df_v = df.copy().reset_index().drop('index',axis=1)
-    
-    # Determine the correlation in order to plot with different colors
-    corr_list = list()
-    for i in feature_list:
-        b = np.corrcoef(shap_v[i],df_v[i])[1][0]
-        corr_list.append(b)
-    corr_df = pd.concat([pd.Series(feature_list),pd.Series(corr_list)],axis=1).fillna(0)
-    # Make a data frame. Column 1 is the feature, and Column 2 is the correlation coefficient
-    corr_df.columns  = ['Variable','Corr']
-    corr_df['Sign'] = np.where(corr_df['Corr']>0,'red','blue')
-    
-    # Plot it
-    shap_abs = np.abs(shap_v)
-    k=pd.DataFrame(shap_abs.mean()).reset_index()
-    k.columns = ['Variable','SHAP_abs']
-    k2 = k.merge(corr_df,left_on = 'Variable',right_on='Variable',how='inner')
-    k2 = k2.sort_values(by='SHAP_abs',ascending = True)
-    colorlist = k2['Sign']
-    ax = k2.plot.barh(x='Variable',y='SHAP_abs',color = colorlist, figsize=(5,6),legend=False)
-    ax.set_xlabel("SHAP Value (Red = Positive Impact)")    
+ 
 
 #st.write ('---debug lecture df1')
 # Pour alimenter le modèle avec les informations du client - les variables sont encodées !!!!!!
@@ -201,28 +175,11 @@ def page2():
     df_occupation = application.groupby('OCCUPATION_TYPE').mean()
     df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
                     "OCCUPATION_TYPE": df_occupation.index})
-    x = df_test.index
-    y = df_test['TARGET'].values  
-    
-    fig = plt.figure(figsize=(10, 4))
-    plt.scatter(x, y)
-    
-    st.balloons()
-    st.pyplot(fig)
-    
-    st.header("bis Occupation type et la target")
-    
-    df_occupation = application.groupby('OCCUPATION_TYPE').mean()
-    df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
-                    "OCCUPATION_TYPE": df_occupation.index})
+    fig = px.scatter(df, x="EXT_SOURCE_3", y="TARGET", color="OCCUPATION_TYPE",
+                 size='TARGET', hover_data=['EXT_SOURCE_3'])
+    fig.show()
     
     
-    plt.figure(figsize=(14,8))
-    s1 = sns.barplot(x = 'OCCUPATION_TYPE', y = 'TARGET', data = df_test, color = 'green')
-    plt.setp(s1.get_xticklabels(), rotation=20, ha='right')
-    #plt.grid(True)
-    #st.balloons()
-    st.pyplot(fig)
     
     # SHAP
     X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
