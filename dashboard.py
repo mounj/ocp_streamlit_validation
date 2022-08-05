@@ -173,9 +173,11 @@ def page2():
     st.header("Occupation type et la target")
     
     df_occupation = application.groupby('OCCUPATION_TYPE').mean()
+    
     df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
                     "OCCUPATION_TYPE": df_occupation.index})
-    fig = px.scatter(df_test, x="EXT_SOURCE_3", y="TARGET", color="OCCUPATION_TYPE",
+    
+    fig = px.scatter(df_occupation, x="EXT_SOURCE_3", y="TARGET", color="OCCUPATION_TYPE",
                  size='TARGET', hover_data=['EXT_SOURCE_3'])
     fig.show()
     
