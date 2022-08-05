@@ -20,6 +20,8 @@ import xgboost as xgb
 from PIL import Image
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
+from IPython.core.interactiveshell import InteractiveShell
+from IPython.utils import capture
 
 st.sidebar.title("Prêt à dépenser")
 #st.write ('---debug chargement image ')
@@ -66,6 +68,11 @@ def chargement_data(path):
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id 
     
+def st_plot_text_shap(shap_val, height=None)
+    InteractiveShell().instance()
+    with capture.capture_output() as cap: 
+        shap.plots.text(shap_val)
+    components.html(cap.outputs[1].data['text/html'], height=height scrolling=True)    
  
 
 st.write ('---debug lecture df1')
@@ -231,7 +238,11 @@ def page2():
     st.header('Variables locales du modèle XGBOOST :')
     shap.initjs()
     #shap.force_plot(explainer.expected_value, shap_values, X) 
-    shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]) 
+    
+    # ça vizu rien !!!!
+    #shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]) 
+    
+    st_plot_text_shap(shap_values, height=None)
     
     st.write ('--- fin page 2') 
     
