@@ -178,7 +178,8 @@ def page2():
                     "OCCUPATION_TYPE": df_occupation.index})
     
      
-    fig = px.scatter(application, x="EXT_SOURCE_3", y="TARGET", color="OCCUPATION_TYPE")
+    #fig = px.scatter(application, x="EXT_SOURCE_3", y="TARGET", color="OCCUPATION_TYPE")
+    fig = px.bar(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_3", color="TARGET", barmode="group")
     st.plotly_chart(fig)
     
     # SHAP
