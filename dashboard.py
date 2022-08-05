@@ -72,7 +72,7 @@ def st_plot_text_shap(shap_val, height=None):
     InteractiveShell().instance()
     with capture.capture_output() as cap: 
         shap.plots.text(shap_val)
-    components.html(cap.outputs[1].data['text/html'], height=height scrolling=True)    
+    components.html(cap.outputs[1].data['text/html'], height=height, scrolling=True)    
  
 
 st.write ('---debug lecture df1')
