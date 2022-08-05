@@ -21,8 +21,7 @@ import xgboost as xgb
 from PIL import Image
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
-from IPython.core.interactiveshell import InteractiveShell
-from IPython.utils import capture
+
 
 st.sidebar.title("Prêt à dépenser")
 #st.write ('---debug chargement image ')
@@ -173,13 +172,7 @@ def page2():
     st.write(X_infos_client)    
     
     # scatter plot
-    
-    
-    #df_occupation = application.groupby('OCCUPATION_TYPE').mean()
-    
-    #df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
-    #                "OCCUPATION_TYPE": df_occupation.index})
-    
+       
     st.header("OCCUPATION_TYPE / EXT_SOURCE_3 / target")    
     fig = px.box(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_3", color="TARGET", notched=True)
     st.plotly_chart(fig)
@@ -236,8 +229,8 @@ def page2():
     #st_shap(shap.plots.beeswarm(shap_values), height=300)
 
     
-    st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X_display.iloc[0,:]), height=200, width=1000)
-    st_shap(shap.force_plot(explainer.expected_value, shap_values[:1000,:], X_display.iloc[:1000,:]), height=400, width=1000)
+    st_shap(shap.force_plot(explainer.expected_value, shap_values, X), height=200, width=1000)
+    #st_shap(shap.force_plot(explainer.expected_value, shap_values[:1000,:], X_display.iloc[:1000,:]), height=400, width=1000)
     
     st.write ('--- fin page 2') 
     
