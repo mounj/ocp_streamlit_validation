@@ -177,8 +177,9 @@ def page2():
     df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
                     "OCCUPATION_TYPE": df_occupation.index})
         
-    fig = px.bar(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_3", color="TARGET",
-             pattern_shape="TARGET", pattern_shape_sequence=["x", "+"])
+    #fig = px.bar(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_3", color="TARGET",
+    #         pattern_shape="TARGET", pattern_shape_sequence=["x", "+"])
+    fig = px.box(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_3", color="TARGET", notched=True)
     st.plotly_chart(fig)
     
     # SHAP
