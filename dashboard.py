@@ -170,7 +170,7 @@ def page2():
     st.write(X_infos_client)    
     
     # scatter plot
-    st.header("Occupation type et la target")
+    st.header("EXT_SOURCE_3 et la target")
     
     df_occupation = application.groupby('OCCUPATION_TYPE').mean()
     
@@ -178,13 +178,7 @@ def page2():
                     "OCCUPATION_TYPE": df_occupation.index})
     
      
-    fig = go.Figure(application=go.Scatter(x=application['OCCUPATION_TYPE'],
-                                y=application['TARGET'],
-                                mode='markers',
-                                marker_color=application['OCCUPATION_TYPE'],
-                                text=application['OCCUPATION_TYPE'])) # hover text goes here
-
-    fig.update_layout(title='nnnnnnnnnn')
+    fig = px.scatter(application, x="EXT_SOURCE_3", y="TARGET", color="OCCUPATION_TYPE")
     st.plotly_chart(fig)
     
     # SHAP
