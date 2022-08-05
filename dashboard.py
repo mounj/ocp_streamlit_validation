@@ -68,7 +68,7 @@ def chargement_data(path):
         liste_id = dataframe['SK_ID_CURR'].tolist()
         return dataframe, liste_id 
     
-def st_plot_text_shap(shap_val, height=None)
+def st_plot_text_shap(shap_val, height=None):
     InteractiveShell().instance()
     with capture.capture_output() as cap: 
         shap.plots.text(shap_val)
