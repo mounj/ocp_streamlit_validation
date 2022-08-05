@@ -233,7 +233,7 @@ def page2():
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
     
-    st_shap(shap.summary_plot(shap_values, X_train, plot_type="bar"))
+    st_shap(shap.summary_plot(shap_values, X, plot_type="bar"))
     
     # test
     st_shap(shap.dependence_plot('EXT_SOURCE_3', shap_values, X))
