@@ -236,7 +236,7 @@ def page2():
     shap_values = explainer.shap_values(X)
    
     st.header('Variables locales du modèle XGBOOST :')
-    shap_display = shap.force_plot(explainer.expected_value[1], shap_values[1], X.iloc[0, :], matplotlib=True)
+    shap_display = shap.force_plot(explainer.expected_value, shap_values, X, matplotlib=True)
     display(shap_display)
     
     #shap.initjs()
