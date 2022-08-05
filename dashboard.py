@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 #import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import requests
 import json
 import pickle
@@ -194,23 +195,17 @@ def page2():
     X_infos_client = application[application['SK_ID_CURR'] == id_input]  
     st.write(X_infos_client)    
     
-    # Histogrammes
-    st.header('Histogrammes :') 
-    # Add histogram data
-    x_1 = application['EXT_SOURCE_1'].values
-    x_2 = application['EXT_SOURCE_2'].values
-    x_3 = application['EXT_SOURCE_3'].values
+    # scatter plot
+    #Create numpy array for the visualisation
+    x_1 = application['EXT_SOURCE_3'].values
+    y_1 = application['TARGET']  
     
-    # Group data together
-    hist_data = [x_1, x_2, x_3]
-    group_labels = ['Group 1', 'Group 2', 'Group 3']
+    fig = plt.figure(figsize=(10, 4))
+    plt.scatter(x_1, y_1)
     
-    # Create distplot with custom bin_size
-    fig = ff.create_distplot(hist_data, group_labels, bin_size=[.1, .25, .5])
-
-    # Plot!
-    st.plotly_chart(fig, use_container_width=True)    
-        
+    st.balloons()
+    st.pyplot(fig)
+    
     # SHAP
     X1 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
     X = X1[['CODE_GENDER', 
