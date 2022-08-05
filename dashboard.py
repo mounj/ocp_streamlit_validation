@@ -179,7 +179,9 @@ def page2():
     
      
     #fig = px.scatter(application, x="EXT_SOURCE_3", y="TARGET", color="OCCUPATION_TYPE")
-    fig = px.bar(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_3", color="TARGET", barmode="group")
+    #fig = px.bar(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_3", color="TARGET", barmode="group")
+    fig = px.bar(application, x="OCCUPATION_TYPE", y="EXT_SOURCE_3", color="TARGET",
+             pattern_shape="TARGET", pattern_shape_sequence=["x", "+"])
     st.plotly_chart(fig)
     
     # SHAP
