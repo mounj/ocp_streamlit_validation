@@ -246,7 +246,7 @@ def page2():
     
     your_feature_list = ['EXT_SOURCE_1','EXT_SOURCE_2','EXT_SOURCE_3']
     your_feature_indices = [X.iloc[:,:].index.tolist().index(x) for x in your_feature_list]
-    shap.summary_plot(shap_values[1][:,your_feature_indices], X.iloc[:, your_feature_indices])
+    shap.summary_plot(shap_values[:,your_feature_indices], X.iloc[:, your_feature_indices])
     shap.summary_plot(shap_values, X)
     
     
