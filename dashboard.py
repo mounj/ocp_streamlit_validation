@@ -1,4 +1,6 @@
 import streamlit as st
+from streamlit_shap import st_shap
+import shap
 import pandas as pd
 # pour réparer le problème avec XGBOOST !!!!!!
 from pandas import MultiIndex, Int16Dtype
@@ -9,7 +11,6 @@ import requests
 import json
 import pickle
 import os
-import shap
 from sklearn.preprocessing import StandardScaler
 import io
 import plotly.express as px
@@ -232,20 +233,19 @@ def page2():
     impPlot(feat_importances, 'XGBOOST Classifier')  
     
     # Variables locales
+    st.header('Variables locales du modèle XGBOOST :')
+    # compute SHAP values
+    explainer = shap.Explainer(model, X)
+    shap_values = explainer(X)
+
+    st_shap(shap.plots.waterfall(shap_values[0]), height=300)
+    st_shap(shap.plots.beeswarm(shap_values), height=300)
+
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
-   
-    st.header('Variables locales du modèle XGBOOST :')
-    shap_display = shap.force_plot(explainer.expected_value, shap_values, X, matplotlib=True)
-    display(shap_display)
-    
-    #shap.initjs()
-    #shap.force_plot(explainer.expected_value, shap_values, X) 
-    
-    # ça vizu rien !!!!
-    #shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]) 
-    
-    #st_plot_text_shap(shap_values, height=None)
+
+    st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X_display.iloc[0,:]), height=200, width=1000)
+    st_shap(shap.force_plot(explainer.expected_value, shap_values[:1000,:], X_display.iloc[:1000,:]), height=400, width=1000)
     
     st.write ('--- fin page 2') 
     
