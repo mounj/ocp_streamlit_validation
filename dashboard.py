@@ -197,10 +197,11 @@ def page2():
     
     # scatter plot
     #Create numpy array for the visualisation
+    st.header("Occupation type et la target")
     df_occupation = application.groupby('OCCUPATION_TYPE').mean()
     df_test = pd.DataFrame({"TARGET": df_occupation['TARGET'].values,
                     "OCCUPATION_TYPE": df_occupation.index})
-    x = df_test.index
+    x = df_test.values
     y = df_test['TARGET'].values  
     
     fig = plt.figure(figsize=(10, 4))
