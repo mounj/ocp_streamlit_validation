@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_shap import st_shap
-#import shap
+import shap
 import pandas as pd
 # pour réparer le problème avec XGBOOST !!!!!!
 from pandas import MultiIndex, Int16Dtype
