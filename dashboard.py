@@ -66,12 +66,12 @@ def chargement_data(path):
     
  
 
-#st.write ('---debug lecture df1')
+st.write ('---debug lecture df1')
 # Pour alimenter le modèle avec les informations du client - les variables sont encodées !!!!!!
 examples_file = 'df1.csv'
 dataframe, liste_id = chargement_data(examples_file) 
 
-#st.write ('---debug les pages')
+st.write ('---debug les pages')
 
 def main_page():
     
@@ -83,20 +83,15 @@ def main_page():
     st.subheader("Prédictions de scoring client et positionnement dans l'ensemble des clients")
 
     # Affichage 1ère fois
-    #values = ['<select>',liste_id]
-        
+            
     if 'client' not in st.session_state:
         st.session_state.client = 0
-        #default_ix = values.index('100068')
     else:
         # Retour pagination
         id_input = st.session_state.client
-        st.write ('---debug client retour pagination ' ,id_input)
-        #default_ix = values.index(id_input)
+        st.write ('---debug client retour pagination main ' ,id_input)
         
-    #values = [liste_id]
-    #default_ix = values.index(100068)
-    #id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser', liste_id, index=default_ix)
+        
     id_input = st.selectbox('Choisissez le client que vous souhaitez visualiser', liste_id)
     st.session_state.client = id_input
     
@@ -160,7 +155,9 @@ def page2():
     
     st.title("Interprétation du modèle")
     
-    id_input = st.session_state.client   
+    st.write ('--- session_state.client page 2')    
+    id_input = st.session_state.client 
+    
     st.write ('Pour le client  ', id_input ,' poids des variables dans le modèle XGBOOST')
      
     # informations du client
@@ -231,10 +228,10 @@ def page2():
    
     st.header('Variables locales du modèle XGBOOST :')
     shap.initjs()
-    shap.force_plot(explainer.expected_value, shap_values, X) 
-    #st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
+    #shap.force_plot(explainer.expected_value, shap_values, X) 
+    shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]) 
     
-    
+     st.write ('--- fin page 2') 
     
 def page3():
     
@@ -258,35 +255,12 @@ def page3():
     # Saisie des informations Client dans X2 pour prédiction nouvelle
     
     X2 = dataframe[dataframe['SK_ID_CURR'] == id_input]    
-         
-             
-    #AGE = st.slider("AGE", 1, 100, 25)
-    #X2['AGE'] = AGE
-        
-    #CNT_CHILDREN = st.slider("CNT_CHILDREN", 1, 5, 3)
-    #X2['CNT_CHILDREN'] = CNT_CHILDREN
-        
-    #DEF_30_CNT_SOCIAL_CIRCLE  = st.slider(" DEF_30_CNT_SOCIAL_CIRCLE, ", 1, 100, 5)
-    #X2['DEF_30_CNT_SOCIAL_CIRCLE'] = DEF_30_CNT_SOCIAL_CIRCLE
-        
-      
-     
-      
-    #NAME_FAMILY_STATUS = st.selectbox("NAME_FAMILY_STATUS",options=['Single' , 'Married']) 
-    #if  NAME_FAMILY_STATUS == 'Single':
-    #    X2['NAME_FAMILY_STATUS_Single'] = 1 
-    #    
-    #if  NAME_FAMILY_STATUS == 'Married':
-    #    X2['NAME_FAMILY_STATUS_Married'] = 1
-        
+    
      
     #AMT_INCOME_TOTAL = st.slider("AMT_INCOME_TOTAL", 1, 500000, 220000)
     #X2['AMT_INCOME_TOTAL'] =  AMT_INCOME_TOTAL
     
-    #INCOME_CREDIT_PERC = st.slider("INCOME_CREDIT_PERC", 0, 1, 0.2)
-    #X2['INCOME_CREDIT_PERC'] = INCOME_CREDIT_PERC
-    
-       
+        
     EXT_SOURCE_1 = st.slider("EXT_SOURCE_1", 0.1, 1.0,0.1)
     X2['EXT_SOURCE_1'] = EXT_SOURCE_1
     
