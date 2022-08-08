@@ -251,7 +251,7 @@ def page2():
     
     shap_values = shap.TreeExplainer(model).shap_values(dataf)
     explainer = shap.TreeExplainer(model)
-    shap_values = explainer(dataf[:700])
+    shap_values = explainer(dataf)
     st_shap(shap.plots.bar(shap_values))
     
     #feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
@@ -269,8 +269,9 @@ def page2():
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
     
-    #st_shap(shap.summary_plot(shap_values, X, plot_type="bar"))
-    st_shap(shap.summary_plot(shap_values, X))
+    st_shap(shap.plots.bar(shap_values))
+    
+    #st_shap(shap.summary_plot(shap_values, X))
     # test
     #st_shap(shap.dependence_plot('EXT_SOURCE_3', shap_values, X))
 
