@@ -251,7 +251,9 @@ def page2():
     
     shap_values = shap.TreeExplainer(model).shap_values(dataf)
     explainer = shap.TreeExplainer(model)
+    
     shap_values = explainer(dataf)
+    
     st_shap(shap.plots.bar(shap_values))
     
     #feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
@@ -259,23 +261,14 @@ def page2():
     
     # Variables locales
     st.header('Variables locales du modèle XGBOOST :')
-    # compute SHAP values
-    explainer = shap.Explainer(model, X)
-    shap_values = explainer(X)
-
-    #st_shap(shap.plots.waterfall(shap_values[0]), height=300)
-    #st_shap(shap.plots.beeswarm(shap_values), height=300)
-
+    
     explainer = shap.TreeExplainer(model)
-    shap_values = explainer.shap_values(X)
+    
+    # compute SHAP values
+    shap_values = explainer(X)
     
     st_shap(shap.plots.bar(shap_values))
     
-    #st_shap(shap.summary_plot(shap_values, X))
-    # test
-    #st_shap(shap.dependence_plot('EXT_SOURCE_3', shap_values, X))
-
-    # 
     st_shap(shap.force_plot(explainer.expected_value, shap_values, X), height=200, width=1000)
     
         
