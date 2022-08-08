@@ -214,7 +214,12 @@ def page2():
           'EXT_SOURCE_1',
           'EXT_SOURCE_2',    
           'EXT_SOURCE_3']]
-        
+    
+    # Variables globales
+    st.header('Variables globales du modèle XGBOOST :')        
+    feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
+    impPlot(feat_importances, 'XGBOOST Classifier') 
+    
     
     # Variables locales
     st.header('Variables locales du modèle XGBOOST :')
