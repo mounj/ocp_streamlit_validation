@@ -216,21 +216,20 @@ def page2():
           'EXT_SOURCE_3']]
         
     
-    # Variables globales
-    st.header('Feature importance du modèle XGBOOST :') 
-        
-    feat_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
-    impPlot(feat_importances, 'XGBOOST Classifier')  
-    
     # Variables locales
     st.header('Variables locales du modèle XGBOOST :')
-    
-    shap_values = shap.TreeExplainer(model).shap_values(X)
-    explainer = shap.TreeExplainer(model)
-    
     # compute SHAP values
+    explainer = shap.Explainer(model, X)
     shap_values = explainer(X)
-    st_shap(shap.plots.bar(shap_values))
+
+    #st_shap(shap.plots.waterfall(shap_values[0]), height=300)
+    #st_shap(shap.plots.beeswarm(shap_values), height=300)
+
+    explainer = shap.TreeExplainer(model)
+    shap_values = explainer.shap_values(X)
+    
+    st_shap(shap.summary_plot(shap_values, X, plot_type="bar"))
+    #st_shap(shap.summary_plot(shap_values, X))
     
     st_shap(shap.force_plot(explainer.expected_value, shap_values, X), height=200, width=1000)
     
