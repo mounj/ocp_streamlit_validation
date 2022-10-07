@@ -1,12 +1,18 @@
-pandas==1.4.3
-plotly==5.9.0
-matplotlib 
-#seaborn
-opencv-python-headless==4.5.3.56
-#streamlit==0.84.0
+numpy
+scipy
+scikit-learn
+matplotlib
+pandas
+fastapi
+uvicorn==0.11.8
+gunicorn
+httptools
+imblearn
 streamlit
 streamlit_shap
+plotly
 scikit-learn
 StandardScaler
 shap
 xgboost
+# RandomForestClassifier
