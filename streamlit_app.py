@@ -312,7 +312,7 @@ def page2():
                  y='Pourcentage',
                  color='NAME_FAMILY_STATUS')
     fig.update_xaxes(type='category', title_text="Succès de remboursement")
-
+    st.write(fig)
     ### graph 3 ###
     group = pd.DataFrame(
         application.groupby(['OCCUPATION_TYPE',
